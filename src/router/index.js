@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/pages/home/home'
 import Message from '@/pages/message/message'
 import Personal from '@/pages/personal/personal'
+import Login from 'pages/login/login'
+import Register from 'pages/register/register'
 
 Vue.use(Router)
 
@@ -26,6 +28,16 @@ export default new Router({
       path: '/personal',
       name: 'Personal',
       component: Personal
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

@@ -12,7 +12,7 @@
       </router-link>
     </div>
   </div>
-  
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -22,7 +22,7 @@ export default {}
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~@/assets/styles/varibles"
   .tab-wrapper
-    position absolute 
+    position absolute
     bottom 0
     width 100%
     .tab
