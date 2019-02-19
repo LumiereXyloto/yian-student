@@ -1,10 +1,16 @@
 <template>
-  <div>home</div>
+  <div>
+    <home-swiper></home-swiper>
+  </div>
 </template>
 
 <script>
+import HomeSwiper from 'components/swiper/swiper'
 export default {
-
+  name: 'Home',
+  components: {
+    HomeSwiper
+  }
 }
 </script>
 

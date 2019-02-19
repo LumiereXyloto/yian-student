@@ -56,12 +56,12 @@ export default {
         this.$layer.msg('账号/密码不能为空')
       } else if (email.test(this.list.uid)) {
         console.log(this.isRememberPsw)// 记住密码
-        if (this.isRememberPsw) {
-          this.savePsw()
-        }
-        axios.post('http://yian.our16.top:8080/yian/account/userLogin.do', qs.stringify({
-          uid: this.list.uid,
-          psw: this.list.psw
+        // if (this.isRememberPsw) {
+        //   this.savePsw()
+        // }
+        axios.post('http://equator8848.xyz:8080/yian2/student/login.do', qs.stringify({
+          userId: this.list.uid,
+          pwd: this.list.psw
         }))
           .then(this.sendInfoSucc)
       } else {
@@ -70,41 +70,40 @@ export default {
       }
     },
     sendInfoSucc (res) {
-      sessionStorage.setItem('uid', this.uid)
-      if (res.data.msg === '2') {
+      console.log(res)
+      // sessionStorage.setItem('uid', this.uid)
+      if (res.data.status === 4005) {
         this.$layer.closeAll()
-        this.$layer.msg('登录成功')
-        console.log(res.data.msg, '商家')
-        this.$router.replace('/merchant')
-      } else if (res.data.msg === '1') {
+        this.$layer.msg(res.data.msg)
+        this.list.psw = ''
+      } else if (res.data.status === 4000) {
+        this.$router.push('/home')
         this.$layer.closeAll()
-        this.$layer.msg('登录成功')
-        console.log(res.data.msg, '学生')
-        this.$router.replace('/')
+        this.$layer.msg(res.data.msg)
       } else {
         this.$layer.closeAll()
         this.$layer.msg('登录失败')
       }
     },
-    savePsw () {
-      console.log(1)
-      window.localStorage.setItem('isSave', this.isRememberPsw)
-      window.localStorage.setItem('uid', this.list.uid)
-      window.localStorage.setItem('psw', this.list.psw)
-    },
+    // savePsw () {
+    //   console.log(1)
+    //   window.localStorage.setItem('isSave', this.isRememberPsw)
+    //   window.localStorage.setItem('uid', this.list.uid)
+    //   window.localStorage.setItem('psw', this.list.psw)
+    // },
     checkCheckboxValue () {
       console.log(this.isRememberPsw)
     }
   },
   mounted () {
-    this.isRememberPsw = window.localStorage.getItem('isSave')
-    if (this.isRememberPsw) {
-      this.list.uid = window.localStorage.getItem('uid')
-      this.list.psw = window.localStorage.getItem('psw')
-    } else {
-      this.list.uid = ''
-      this.list.psw = ''
-    }
+    // this.isRememberPsw = window.localStorage.getItem('isSave')
+    // if (this.isRememberPsw) {
+    //   this.list.uid = window.localStorage.getItem('uid')
+    //   this.list.psw = window.localStorage.getItem('psw')
+    // } else {
+    //   this.list.uid = ''
+    //   this.list.psw = ''
+    // }
   }
 }
 </script>
