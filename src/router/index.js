@@ -5,6 +5,7 @@ import Message from '@/pages/message/message'
 import Personal from '@/pages/personal/personal'
 import Login from 'pages/login/login'
 import Register from 'pages/register/register'
+import Detail from 'pages/detail/detail'
 
 Vue.use(Router)
 

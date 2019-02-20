@@ -205,6 +205,9 @@ export default {
   },
   mounted () {
     this.getSchools()
+  },
+  beforeDestroy () {
+    clearInterval(this.timer)
   }
 }
 </script>
