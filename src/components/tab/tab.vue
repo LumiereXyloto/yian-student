@@ -1,6 +1,6 @@
 <template>
   <div class="tab-wrapper">
-    <div class="tab">
+    <div class="tab border-top">
       <router-link tag="div" class="tab-item" to="/home">
         <span class="tab-link">首页</span>
       </router-link>

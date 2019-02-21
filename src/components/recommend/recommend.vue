@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="recommend-title">兼职推荐</div>
+    <div class="recommend-title" v-if="this.list.length>0">兼职推荐</div>
       <ul>
         <router-link
           tag="li"
@@ -46,7 +46,7 @@ export default {
         .then(this.sendRequestSucc)
     },
     sendRequestSucc (res) {
-      // console.log(res)
+      console.log(res)
       this.list = res.data.data.list
     }
   },

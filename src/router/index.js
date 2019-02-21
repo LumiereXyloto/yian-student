@@ -18,7 +18,14 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          name: 'detail',
+          path: ':id',
+          component: Detail
+        }
+      ]
     },
     {
       path: '/message',
