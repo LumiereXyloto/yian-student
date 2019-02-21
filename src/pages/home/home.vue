@@ -2,7 +2,6 @@
   <div>
     <home-swiper></home-swiper>
     <home-recommend></home-recommend>
-    <router-view></router-view>
   </div>
 </template>
 

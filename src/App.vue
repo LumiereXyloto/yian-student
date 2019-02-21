@@ -23,6 +23,8 @@ export default {
         this.tabType = false
       } else if (e.name === 'Register') {
         this.tabType = false
+      } else if (e.name === 'Detail') {
+        this.tabType = false
       } else {
         this.tabType = true
       }
@@ -36,6 +38,8 @@ export default {
       if (this.$route.name === 'Login') {
         this.tabType = false
       } else if (this.$route.name === 'Register') {
+        this.tabType = false
+      } else if (this.$route.name === 'Detail') {
         this.tabType = false
       } else {
         this.tabType = true

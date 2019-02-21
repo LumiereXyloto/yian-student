@@ -2,12 +2,11 @@
   <div>
     <div class="recommend-title" v-if="this.list.length>0">兼职推荐</div>
       <ul>
-        <router-link
-          tag="li"
+        <li
           class="item border-bottom"
           v-for="item of list"
           :key="item.jobId"
-          :to="'/detail/' + item.jobId"
+          @click="selectItem(item)"
         >
           <div class="item-img-wrapper">
             <img src="@/assets/images/logo.png" class="item-img">
@@ -21,7 +20,7 @@
               <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
             </div>
           </div>
-        </router-link>
+        </li>
       </ul>
   </div>
 </template>
@@ -48,6 +47,9 @@ export default {
     sendRequestSucc (res) {
       console.log(res)
       this.list = res.data.data.list
+    },
+    selectItem (item) {
+      this.$router.push(`/detail/${item.jobId}`)
     }
   },
   mounted () {
