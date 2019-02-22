@@ -62,7 +62,9 @@ export default {
         axios.post('http://equator8848.xyz:8080/yian2/student/login.do', qs.stringify({
           userId: this.list.uid,
           pwd: this.list.psw
-        }))
+        }), {
+          withCredentials: true
+        })
           .then(this.sendInfoSucc)
       } else {
         this.$layer.closeAll()

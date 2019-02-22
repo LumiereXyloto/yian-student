@@ -25,11 +25,13 @@ export default {}
     position absolute
     bottom 0
     width 100%
+    z-index 5
     .tab
       display: flex
       height: .88rem
       line-height: .88rem
       font-size: $font-size-medium
+      background-color #ffffff
       .tab-item
         flex: 1
         text-align: center

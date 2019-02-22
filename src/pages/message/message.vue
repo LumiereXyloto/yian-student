@@ -1,6 +1,6 @@
 <template>
   <div>
-    <message-header></message-header>
+    <message-header :title="title"></message-header>
     <img src="/static/images/banner.png" class="banner">
     <message-list></message-list>
   </div>
@@ -14,6 +14,11 @@ export default {
   components: {
     MessageHeader,
     MessageList
+  },
+  data () {
+    return {
+      title: '我的消息'
+    }
   }
 }
 </script>

@@ -19,14 +19,14 @@ export default {
   },
   watch: {
     $route (e) {
-      if (e.name === 'Login') {
-        this.tabType = false
-      } else if (e.name === 'Register') {
-        this.tabType = false
-      } else if (e.name === 'Detail') {
-        this.tabType = false
-      } else {
+      if (e.name === 'Home') {
         this.tabType = true
+      } else if (e.name === 'Message') {
+        this.tabType = true
+      } else if (e.name === 'Personal') {
+        this.tabType = true
+      } else {
+        this.tabType = false
       }
     }
   },
@@ -35,14 +35,14 @@ export default {
   },
   methods: {
     checkTabType () {
-      if (this.$route.name === 'Login') {
-        this.tabType = false
-      } else if (this.$route.name === 'Register') {
-        this.tabType = false
-      } else if (this.$route.name === 'Detail') {
-        this.tabType = false
-      } else {
+      if (this.$route.name === 'Home') {
         this.tabType = true
+      } else if (this.$route.name === 'Message') {
+        this.tabType = true
+      } else if (this.$route.name === 'Personal') {
+        this.tabType = true
+      } else {
+        this.tabType = false
       }
     }
   }

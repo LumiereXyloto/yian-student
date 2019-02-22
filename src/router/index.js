@@ -6,6 +6,7 @@ import Personal from '@/pages/personal/personal'
 import Login from 'pages/login/login'
 import Register from 'pages/register/register'
 import Detail from 'pages/detail/detail'
+import MessageDetail from 'pages/message-detail/message-detail'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/message/:messageId',
+      name: 'MessageDetail',
+      component: MessageDetail
     }
   ]
 })

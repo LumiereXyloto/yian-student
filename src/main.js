@@ -10,12 +10,14 @@ import 'swiper/dist/css/swiper.css'
 import layer from 'vue2-layer-mobile'
 import '@/assets/styles/reset.css'
 import '@/assets/styles/border.css'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 
 Vue.use(layer)
 fasClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)
+Vue.prototype.axios = axios
 
 /* eslint-disable no-new */
 new Vue({
