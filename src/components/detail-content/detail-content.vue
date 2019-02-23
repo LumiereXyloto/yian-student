@@ -25,6 +25,7 @@
       <div class="detail">{{list.details}}</div>
       <div class="tip">若发现实际工作内容与上述描述不符，请您提高警惕并第一时间向我们举报</div>
       <div class="color-block"></div>
+      <div class="contact">联系信息：</div>
       <div class="row-wrapper">
         <span class="grey">联系人：</span>
         <span class="black">{{list.merchantName}}</span>
@@ -33,7 +34,11 @@
         <span class="grey">联系方式：</span>
         <span class="black">{{list.merchantPhone}}</span>
       </div>
-      <div class="warn border-bottom">(提示：凡收取费用的兼职，需谨慎 ! )</div>
+      <div class="row-wrapper">
+        <span class="grey">他的评价：</span>
+        <span class="black"  @click="toMerchantDetail">点击查看</span>
+      </div>
+      <!-- <div class="warn border-bottom">(提示：凡收取费用的兼职，需谨慎 ! )</div> -->
     </div>
   </div>
 </template>
@@ -76,6 +81,9 @@ export default {
     },
     sendRequestSucc (res) {
       this.list = res.data.data
+    },
+    toMerchantDetail () {
+      this.$router.push(`/evaluation/${this.list.merchantId}`)
     }
   },
   mounted () {
@@ -114,11 +122,17 @@ export default {
       color #979797
     .black
       font-size .32rem
+  .contact
+    margin .2rem .4rem .2rem .4rem
+    border-left .1rem solid $bgColor
+    padding-left .2rem
+    font-size .32rem
+    color #0F87FF
   .color-block
     height .25rem
     background-color #EFEFF4
   .detail-title
-    margin .3rem .4rem .2rem .4rem
+    margin .2rem .4rem .1rem .4rem
     border-left .1rem solid $bgColor
     padding-left .2rem
     font-size .32rem
@@ -131,8 +145,9 @@ export default {
     padding 0 .4rem .3rem .4rem
     font-size .24rem
     font-weight bold
-  .warn
-    padding .1rem .4rem .3rem .4rem
-    color #FF4040
-    margin-bottom 1rem
+  // .warn
+  //   padding .1rem .4rem .3rem .4rem
+  //   color #FF4040
+  //   margin-bottom 1rem
+  //   font-size .26rem
 </style>
