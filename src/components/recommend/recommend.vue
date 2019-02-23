@@ -45,7 +45,7 @@ export default {
         .then(this.sendRequestSucc)
     },
     sendRequestSucc (res) {
-      console.log(res)
+      // console.log(res)
       this.list = res.data.data.list
     },
     selectItem (item) {

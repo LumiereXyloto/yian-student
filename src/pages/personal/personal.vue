@@ -47,5 +47,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  background-color 
+
 </style>

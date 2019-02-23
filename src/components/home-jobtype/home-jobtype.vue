@@ -2,7 +2,7 @@
   <div class="icons">
     <swiper :options="swiperOption">
       <swiper-slide v-for="(page,index) of pages" :key="index">
-        <div class="icon" v-for="item of page" :key="item.id" @click="title=item.desc;typeStore=item.id;sendRequest()">
+        <div class="icon" v-for="item of page" :key="item.id" @click="selectItem(item)">
           <div class="icon-img">
             <img class="icon-img-content" :src="item.imgUrl">
           </div>
@@ -12,7 +12,7 @@
     </swiper>
 
     <!-- 根据兼职类型返回的列表 -->
-      <div class="recommend-title">{{title}}</div>
+      <div class="recommend-title" v-if="this.list.length>0">{{typeTitle}}</div>
       <ul>
         <transition-group class="fadeIn">
           <router-link
@@ -26,9 +26,9 @@
               <img src="@/assets/images/logo.png" class="item-img">
             </div>
             <div class="item-info">
-              <p class="item-brief">{{item.brief}}</p>
-              <p class="item-time">{{item.location}}</p>
-              <p class="item-time">{{item.time}}</p>
+              <p class="item-brief">{{item.jobSummary}}</p>
+              <p class="item-time">{{item.address}}</p>
+              <p class="item-time">{{item.jobTime}}</p>
               <div class="reward-and-num">
                 <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
                 <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import qs from 'qs'
 export default {
   name: 'HomeIcons',
@@ -50,50 +49,10 @@ export default {
       swiperOption: {
         autoplay: false
       },
-      iconList: [{
-        id: '1',
-        imgUrl: './static/images/1.png',
-        desc: '家教'
-      }, {
-        id: '2',
-        imgUrl: './static/images/2.png',
-        desc: '服务员'
-      }, {
-        id: '3',
-        imgUrl: './static/images/3.png',
-        desc: '接待员'
-      }, {
-        id: '4',
-        imgUrl: './static/images/4.png',
-        desc: '安保人员'
-      }, {
-        id: '5',
-        imgUrl: './static/images/5.png',
-        desc: '推广促销'
-      }, {
-        id: '6',
-        imgUrl: './static/images/6.png',
-        desc: '翻译'
-      }, {
-        id: '7',
-        imgUrl: './static/images/7.png',
-        desc: '话务员'
-      }, {
-        id: '8',
-        imgUrl: './static/images/8.png',
-        desc: '实习生'
-      }, {
-        id: '9',
-        imgUrl: './static/images/9.png',
-        desc: '收银员'
-      }, {
-        id: '0',
-        imgUrl: './static/images/0.png',
-        desc: '其它'
-      }],
-      title: '',
+      iconList: [],
+      typeTitle: '',
       list: [],
-      typeStore: ''
+      jobType: ''
     }
   },
   computed: {
@@ -111,24 +70,51 @@ export default {
   },
   methods: {
     getAllType () {
-      axios.post('http://equator8848.xyz:8080/yian2/jobTypeList/getParttimeType.do')
+      this.axios.post('http://equator8848.xyz:8080/yian2/jobTypeList/getParttimeType.do', qs.stringify({
+        pageNum: '1',
+        onePageNum: '10'
+      }))
         .then((res) => {
-          console.log(res)
+          // console.log(res)
+          this.normalizeList(res)
         })
     },
+    normalizeList (res) {
+      let ret = []
+      let list = res.data.data.list
+      for (let i in list) {
+        let obj = {}
+        obj.id = list[i].id
+        obj.imgUrl = list[i].icon
+        obj.desc = list[i].name
+        ret.push(obj)
+      }
+      // console.log(ret)
+      this.iconList = ret
+    },
     sendRequest () {
-      axios.post('http://yian.our16.top:8080/yian/parttimeHall/seekByParttimeType.do', qs.stringify({
-        parttimeType: this.typeStore,
-        pageNum: '0',
-        onePageNum: '0'
+      this.axios.post('http://equator8848.xyz:8080/yian2/parttimeHall/seekByJobType.do', qs.stringify({
+        parttimeType: this.jobType,
+        pageNum: '1',
+        onePageNum: '10'
       }), {
         withCredentials: true
       })
-        .then(this.sendRequestSucc)
+        .then((res) => {
+          this.sendRequestSucc(res)
+        })
     },
     sendRequestSucc (res) {
-      console.log(res)
-      this.list = res.data.data
+      if (res.data.status === 1) {
+        this.list = res.data.data.list
+        console.log(this.list)
+      }
+    },
+    selectItem (item) {
+      // console.log(item)
+      this.typeTitle = item.desc
+      this.jobType = item.id
+      this.sendRequest()
     }
   },
   mounted () {
