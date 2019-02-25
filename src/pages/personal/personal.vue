@@ -1,7 +1,19 @@
 <template>
   <div>
     <personal-header :title="title"></personal-header>
-    <div class="background"></div>
+    <div class="wrapper">
+      <div class="item">
+        <router-link to="/personal-info">
+          个人信息
+        </router-link>
+      </div>
+      <div class="item">账号安全与认证</div>
+      <div class="item">我的兼职</div>
+      <div class="item">我的关注</div>
+      <div class="item">我的评价</div>
+      <div class="item">联系与反馈</div>
+      <div class="item">注销登录</div>
+    </div>
   </div>
 </template>
 
@@ -47,5 +59,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+@import '~@/assets/styles/varibles.styl'
+  .wrapper
+    display flex
+    flex-direction column
+    justify-content center
+    text-align center
+    margin-top 3rem
+    .item
+      padding .3rem 0
+      margin-top .2rem
+      background #eeeeee
 </style>

@@ -8,6 +8,7 @@ import Register from 'pages/register/register'
 import Detail from 'pages/detail/detail'
 import MessageDetail from 'pages/message-detail/message-detail'
 import Evaluation from 'pages/evaluation/evaluation'
+import PersonalInfo from 'pages/personal-info/personal-info'
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ export default new Router({
       path: '/evaluation/:merchantId',
       name: 'Evaluation',
       component: Evaluation
+    },
+    {
+      path: '/personal-info',
+      name: 'PersonalInfo',
+      component: PersonalInfo
     }
   ]
 })
