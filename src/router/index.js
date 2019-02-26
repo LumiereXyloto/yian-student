@@ -9,6 +9,7 @@ import Detail from 'pages/detail/detail'
 import MessageDetail from 'pages/message-detail/message-detail'
 import Evaluation from 'pages/evaluation/evaluation'
 import PersonalInfo from 'pages/personal-info/personal-info'
+import MyParttimejob from 'pages/my-parttimejob/my-parttimejob'
 
 Vue.use(Router)
 
@@ -62,6 +63,11 @@ export default new Router({
       path: '/personal-info',
       name: 'PersonalInfo',
       component: PersonalInfo
+    },
+    {
+      path: '/my-parttimejob',
+      name: 'MyParttimejob',
+      component: MyParttimejob
     }
   ]
 })

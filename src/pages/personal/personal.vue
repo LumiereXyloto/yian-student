@@ -8,11 +8,15 @@
         </router-link>
       </div>
       <div class="item">账号安全与认证</div>
-      <div class="item">我的兼职</div>
+      <div class="item">
+        <router-link to="/my-parttimejob">
+          我的兼职
+        </router-link>
+      </div>
       <div class="item">我的关注</div>
       <div class="item">我的评价</div>
       <div class="item">联系与反馈</div>
-      <div class="item">注销登录</div>
+      <div class="item" @click="signOut">注销登录</div>
     </div>
   </div>
 </template>
@@ -39,17 +43,18 @@ export default {
         className: 'good luck1',
         shade: true,
         yes (index, $layer) {
-          console.log('点击确定')
-          this.axios.get('http://yian.our16.top:8080/yian/account/logout.do')
+          // console.log('点击确定')
+          _this.axios.get('http://equator8848.xyz:8080/yian2/common/account/logOut.do')
             .then(res => {
-              console.log(res)
-              _this.$layer.closeAll()
-              _this.$layer.msg('注销成功')
-              _this.$router.replace('/login')
+              if (res.data.status === 1) {
+                _this.$layer.closeAll()
+                _this.$layer.msg(res.data.msg)
+                _this.$router.push('/login')
+              }
             })
         },
         end () {
-          console.log('点击取消')
+          // console.log('点击取消')
           _this.$layer.closeAll()
         }
       })
