@@ -13,7 +13,7 @@
     <transition name="slide-fade">
       <div class="contentArea" v-show="isclicked" >
         <div class="contentItem" v-for="(item, index) in content" :key="index" @click="toDetail(item.jobId)">
-          <p class="contentTitle">{{item.jobSummary}}</p>
+          <p class="contentTitle">{{item.title}}</p>
           <span class="contentTime">{{item.jobTime}}</span>
         </div>
       </div>
