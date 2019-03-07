@@ -16,6 +16,7 @@
           <p class="contentTitle">{{item.title}}</p>
           <span class="contentTime">{{item.jobTime}}</span>
         </div>
+        <div>{{this.msg}}</div>
       </div>
     </transition>
   </div>
@@ -38,6 +39,9 @@ export default {
     // 内部展示内容数组
     content: {
       type: Array
+    },
+    msg: {
+      type: String
     }
   },
   methods: {

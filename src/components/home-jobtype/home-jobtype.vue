@@ -126,13 +126,12 @@ export default {
 <style lang="stylus" scoped>
   @import '~@/assets/styles/varibles.styl'
   @import '~@/assets/styles/mixins.styl'
-  .icons
-    margin-top: .1rem
   .icons >>> .swiper-container
     width: 100%
     height: 0
     padding-bottom: 50%
     overflow: hidden
+    background-color #ffffff
     .icon
       position: relative
       overflow: hidden
@@ -169,7 +168,7 @@ export default {
     opacity: 0;
   }
   .recommend-title
-    margin-top: .2rem
+    padding-top: .2rem
     background: #eeeeee
     line-height: .8rem
     text-indent: .2rem

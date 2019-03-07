@@ -22,7 +22,7 @@ export default {}
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~@/assets/styles/varibles"
   .tab-wrapper
-    position absolute
+    position fixed
     bottom 0
     width 100%
     z-index 5

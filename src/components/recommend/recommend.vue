@@ -62,12 +62,12 @@ export default {
   @import '~@/assets/styles/mixins.styl'
   @import '~@/assets/styles/varibles.styl'
   .recommend-title
-    margin-top: .2rem
     background: #eeeeee
     line-height: .8rem
     text-indent: .2rem
   .item
     display flex
+    background-color #ffffff
     .item-img-wrapper
       display flex
       justify-content center

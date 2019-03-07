@@ -1,9 +1,9 @@
 <template>
   <div>
     <my-parttimejob-header :title="title"></my-parttimejob-header>
-    <folding-board :title="tabTitle1" :content="content1"></folding-board>
-    <folding-board :title="tabTitle2" :content="content2"></folding-board>
-    <folding-board :title="tabTitle3" :content="content3"></folding-board>
+    <folding-board :title="tabTitle1" :content="content1" :msg="msg1"></folding-board>
+    <folding-board :title="tabTitle2" :content="content2" :msg="msg2"></folding-board>
+    <folding-board :title="tabTitle3" :content="content3" :msg="msg3"></folding-board>
   </div>
 </template>
 
@@ -25,7 +25,10 @@ export default {
       tabTitle3: '已完成',
       content1: [],
       content2: [],
-      content3: []
+      content3: [],
+      msg1: '',
+      msg2: '',
+      msg3: ''
     }
   },
   methods: {
@@ -34,8 +37,11 @@ export default {
         status: 1
       }))
         .then((res) => {
-          console.log(res.data.data)
-          this.content1 = res.data.data
+          if (res.data.status === 1) {
+            this.content1 = res.data.data
+          } else if (res.data.status === 0) {
+            this.msg1 = res.data.msg
+          }
         })
     },
     toBeEvaluated () {
@@ -43,8 +49,11 @@ export default {
         status: 2
       }))
         .then((res) => {
-          console.log(res.data.data)
-          this.content2 = res.data.data
+          if (res.data.status === 1) {
+            this.content2 = res.data.data
+          } else if (res.data.status === 0) {
+            this.msg2 = res.data.msg
+          }
         })
     },
     getFinishedJob () {
@@ -52,8 +61,11 @@ export default {
         status: 4
       }))
         .then((res) => {
-          console.log(res.data.data)
-          this.content3 = res.data.data
+          if (res.data.status === 1) {
+            this.content3 = res.data.data
+          } else if (res.data.status === 0) {
+            this.msg3 = res.data.msg
+          }
         })
     }
   },
