@@ -56,7 +56,7 @@ export default new Router({
       component: MessageDetail
     },
     {
-      path: '/evaluation/:merchantId',
+      path: '/evaluation',
       name: 'Evaluation',
       component: Evaluation
     },

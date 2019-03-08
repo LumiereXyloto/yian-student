@@ -41,10 +41,12 @@
         </router-link>
       </div>
       <div class="item border-bottom item-margin-bottom">
-        <div>
-          我的评价
-          <img class="mini-image2" src="@/assets/images/5.png">
-        </div>
+        <router-link to="/evaluation">
+          <div>
+            我的评价
+            <img class="mini-image2" src="@/assets/images/5.png">
+          </div>
+        </router-link>
       </div>
       <div class="item">
         <div>
