@@ -19,6 +19,13 @@
         <p>露出脸部正面和学生证正面</p>
       </div>
     </div>
+    <div class="upload-wrapper">
+      <p class="up-image">+</p>
+      <p>上传认证图片</p>
+    </div>
+    <div class="button">
+      上传照片
+    </div>
   </div>
 </template>
 
@@ -37,11 +44,23 @@ export default {
       schoolName: '重庆邮电大学',
       status: '待审核'
     }
+  },
+  methods: {
+    getCheckStatus () {
+      this.axios.get('http://equator8848.xyz:8080/yian2/student/getCheckStatus.do')
+        .then((res) => {
+          console.log(res)
+        })
+    }
+  },
+  mounted () {
+    this.getCheckStatus()
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~@/assets/styles/varibles.styl'
   .wrapper
     margin 1.26rem .12rem 0
     .info-bar
@@ -61,7 +80,7 @@ export default {
     .course
       padding .4rem
       margin-top .4rem
-      height 5rem
+      height 4.4rem
       border-radius .2rem
       background-color #ffffff
       .course_iamge
@@ -71,5 +90,27 @@ export default {
         height 2.5rem
       .course_text
         margin-top .5rem
-
+        text-align center
+        font-size .32rem
+    .upload-wrapper
+      margin-top .4rem
+      height 2rem
+      background-color #ffffff
+      text-align center
+      color #BDBDBD
+      border-radius .2rem
+      .up-image
+        font-size 1.4rem
+        width 1.4rem
+        margin 0 auto
+    .button
+      width 2rem
+      margin .4rem auto 0
+      height .6rem
+      line-height .6rem
+      background-color $color-theme
+      color #ffffff
+      letter-spacing .04rem
+      text-align center
+      border-radius .14rem
 </style>
