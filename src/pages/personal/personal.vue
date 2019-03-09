@@ -19,10 +19,12 @@
         </router-link>
       </div>
       <div class="item item-margin-bottom">
-        <div>
-          账号安全与认证
-          <img class="mini-image" src="@/assets/images/2.png">
-        </div>
+        <router-link to="/certification">
+          <div>
+            账号安全与认证
+            <img class="mini-image2" src="@/assets/images/2.png">
+          </div>
+        </router-link>
       </div>
       <div class="item border-bottom">
         <router-link to="/my-parttimejob">
@@ -49,10 +51,12 @@
         </router-link>
       </div>
       <div class="item">
-        <div>
-          联系与反馈
-          <img class="mini-image2" src="@/assets/images/6.png">
-        </div>
+        <router-link to="/feedback">
+          <div>
+            评价与反馈
+            <img class="mini-image2" src="@/assets/images/6.png">
+          </div>
+        </router-link>
       </div>
       <div class="item logout" @click="signOut">注 销 登 录</div>
     </div>

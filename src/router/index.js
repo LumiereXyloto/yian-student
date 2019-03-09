@@ -11,6 +11,8 @@ import Evaluation from 'pages/evaluation/evaluation'
 import PersonalInfo from 'pages/personal-info/personal-info'
 import MyParttimejob from 'pages/my-parttimejob/my-parttimejob'
 import MyPreference from 'pages/preference/preference'
+import Feedback from 'pages/feedback/feedback'
+import Certification from 'pages/certification/certification'
 
 Vue.use(Router)
 
@@ -74,6 +76,16 @@ export default new Router({
       path: '/preference',
       name: 'Preference',
       component: MyPreference
+    },
+    {
+      path: '/feedback',
+      name: 'Feedback',
+      component: Feedback
+    },
+    {
+      path: '/certification',
+      name: 'Certification',
+      component: Certification
     }
   ]
 })

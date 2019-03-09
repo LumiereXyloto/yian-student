@@ -67,6 +67,6 @@ export default {
       position: absolute
       top: 0
       left: 0
-      color: $bgColor
+      // color: $bgColor
       font-weight 600
 </style>

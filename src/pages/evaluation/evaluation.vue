@@ -3,9 +3,18 @@
     <evaluation-header :title="title"></evaluation-header>
     <div class="user-info border-bottom">用户名</div>
     <div class="evaluation-num">
-      <div class="flex-item">好评 99</div>
-      <div class="flex-item">中评 99</div>
-      <div class="flex-item">差评 99</div>
+      <div class="flex-item">
+        <img class="face-img" src="@/assets/images/good.png">
+        好评 {{goodNum}}
+      </div>
+      <div class="flex-item">
+        <img class="face-img" src="@/assets/images/middle.png">
+        中评 {{middleNum}}
+      </div>
+      <div class="flex-item">
+        <img class="face-img" src="@/assets/images/bad.png">
+        差评 {{badNum}}
+      </div>
     </div>
     <div class="tab">
       <div class="tab-item" :class="[isSelected ? activeItem: blankItem]" @click="tabLeftClick">Ta收到的</div>
@@ -35,7 +44,10 @@ export default {
       blankItem: 'blank-item',
       inList: [],
       outList: [],
-      activeList: []
+      activeList: [],
+      goodNum: '',
+      middleNum: '',
+      badNum: ''
     }
   },
   methods: {
@@ -90,9 +102,12 @@ export default {
       return ret
     },
     getEvaluationNumber () {
-      this.axios.get('http://www.equator8848.xyz:8080/yian2/evaluate/getOwnEvaluationData.do')
+      this.axios.get('http://equator8848.xyz:8080/yian2/evaluate/getOwnEvaluationData.do')
         .then((res) => {
-          console.log(res)
+          const num = res.data.data
+          this.goodNum = num.good_evaluation
+          this.middleNum = num.middle_evaluation
+          this.badNum = num.bad_evaluation
         })
     }
   },
@@ -119,6 +134,9 @@ export default {
     line-height 1rem
     margin 0 .12rem
     background-color #fff
+    .face-img
+      width .6rem
+      height .6rem
   .tab
     display flex
     background-color #fff
