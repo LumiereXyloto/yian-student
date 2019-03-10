@@ -89,11 +89,11 @@ export default {
     },
     // 上传到服务器
     uploadToServer () {
+      console.log('添加')
       let _this = this
       let file = this.$refs.file.files[0]
       let formData = new FormData()
       formData.append('img', file)
-      console.log(formData.get('img'))
       this.axios.post('http://equator8848.xyz:8080/yian2/student/auditImg.do', formData, {
         headers: {'Content-Type': 'multipart/form-data'}
       })
