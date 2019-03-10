@@ -8,11 +8,14 @@
       </div>
       <div>
         <img class="status-image" src="@/assets/images/daishenhe.png">
-        <span>{{status}}</span>
+        <span>{{statusText}}</span>
       </div>
     </div>
     <div class="course">
-      <div>如何认证？</div>
+      <div class="hide" v-show="showFlag">
+        <img :src="imageUrl" class="imgUrl">
+      </div>
+      <div @click="toggleHide" class="toggle" ref="toggle">如何认证？</div>
       <img class="course_iamge" src="@/assets/images/course_top.png">
       <div class="course_text">
         <p>请您上传手持学生证的照片</p>
@@ -20,10 +23,11 @@
       </div>
     </div>
     <div class="upload-wrapper">
-      <p class="up-image">+</p>
-      <p>上传认证图片</p>
+      <p class="up-image" @click="uploadPic">+</p>
+      <input type="file" ref="file" name="file" @change="uploadToServer" accept="image/png,image/jpeg,image/jpg" class="uploadInput">
+      <p>添加认证图片</p>
     </div>
-    <div class="button">
+    <div class="button" @click="confirmUpload">
       上传照片
     </div>
   </div>
@@ -31,6 +35,7 @@
 
 <script>
 import CertificationHeader from 'components/header/header'
+import qs from 'qs'
 export default {
   name: 'Certification',
   components: {
@@ -41,8 +46,12 @@ export default {
       title: '信息认证',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
-      schoolName: '重庆邮电大学',
-      status: '待审核'
+      schoolName: '',
+      statusText: '',
+      imageUrl: '',
+      addFlag: false,
+      showFlag: false,
+      isNewUser: true
     }
   },
   methods: {
@@ -50,7 +59,80 @@ export default {
       this.axios.get('http://equator8848.xyz:8080/yian2/student/getCheckStatus.do')
         .then((res) => {
           console.log(res)
+          if (res.data.status === 1) {
+            this.statusText = this.transformStatus(res.data.data.scheckStatus)
+            this.schoolName = res.data.data.schoolName || '未知大学'
+            if (res.data.data.auditImg) {
+              this.imageUrl = res.data.data.auditImg
+              this.showFlag = true
+              this.isNewUser = false
+            }
+          }
         })
+    },
+    transformStatus (num) {
+      if (num === 0) {
+        return '新用户'
+      } else if (num === 1) {
+        return '待审核'
+      } else if (num === 2) {
+        return '未过审'
+      } else if (num === 3) {
+        return '已过审'
+      } else if (num === 4) {
+        return '已冻结'
+      }
+    },
+    uploadPic () {
+      // 触发文件上传的点击事件
+      this.$refs.file.dispatchEvent(new MouseEvent('click'))
+    },
+    // 上传到服务器
+    uploadToServer () {
+      let _this = this
+      let file = this.$refs.file.files[0]
+      let formData = new FormData()
+      formData.append('img', file)
+      console.log(formData.get('img'))
+      this.axios.post('http://equator8848.xyz:8080/yian2/student/auditImg.do', formData, {
+        headers: {'Content-Type': 'multipart/form-data'}
+      })
+        .then(res => {
+          console.log(res)
+          if (res.data.status === 1) {
+            _this.$layer.closeAll()
+            _this.$layer.msg('添加成功，请点击上传')
+            _this.imageUrl = res.data.data
+            _this.showFlag = true
+            _this.addFlag = true
+          } else {
+            _this.$layer.closeAll()
+            _this.$layer.msg(res.data.msg)
+          }
+        })
+    },
+    confirmUpload () {
+      if (!this.addFlag) {
+        this.$layer.closeAll()
+        this.$layer.msg('请先添加认证图片')
+      } else {
+        this.axios.post('http://equator8848.xyz:8080/yian2/student/updateAuditImg.do', qs.stringify({
+          img: this.imageUrl
+        }))
+          .then((res) => {
+            console.log(res)
+          })
+      }
+    },
+    toggleHide () {
+      if (!this.isNewUser) {
+        this.showFlag = !this.showFlag
+        if (this.showFlag) {
+          this.$refs.toggle.innerHTML = '如何认证？'
+        } else {
+          this.$refs.toggle.innerHTML = '我的上传'
+        }
+      }
     }
   },
   mounted () {
@@ -78,11 +160,25 @@ export default {
         width .6rem
         height .6rem
     .course
+      position relative
       padding .4rem
       margin-top .4rem
       height 4.4rem
       border-radius .2rem
       background-color #ffffff
+      .hide
+        position absolute
+        left 50%
+        height 4rem
+        width 5rem
+        margin-top .4rem
+        margin-left -2.5rem
+        background-color #ffffff
+        text-align center
+        .imgUrl
+          height 100%
+      .toggle
+        text-decoration underline
       .course_iamge
         display block
         margin .2rem auto 0
@@ -103,6 +199,8 @@ export default {
         font-size 1.4rem
         width 1.4rem
         margin 0 auto
+      .uploadInput
+        display none
     .button
       width 2rem
       margin .4rem auto 0

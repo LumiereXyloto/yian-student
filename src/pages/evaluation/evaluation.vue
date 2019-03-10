@@ -1,7 +1,10 @@
 <template>
   <div>
     <evaluation-header :title="title"></evaluation-header>
-    <div class="user-info border-bottom">用户名</div>
+    <div class="user-info border-bottom">
+      <img :src="icon" class="avatar">
+      {{name}}
+    </div>
     <div class="evaluation-num">
       <div class="flex-item">
         <img class="face-img" src="@/assets/images/good.png">
@@ -47,7 +50,9 @@ export default {
       activeList: [],
       goodNum: '',
       middleNum: '',
-      badNum: ''
+      badNum: '',
+      name: '',
+      icon: ''
     }
   },
   methods: {
@@ -108,6 +113,8 @@ export default {
           this.goodNum = num.good_evaluation
           this.middleNum = num.middle_evaluation
           this.badNum = num.bad_evaluation
+          this.name = num.name
+          this.icon = num.icon
         })
     }
   },
@@ -127,6 +134,13 @@ export default {
     margin 1rem .12rem 0
     padding 0 .6rem
     background-color #ffffff
+    .avatar
+      display inline-block
+      overflow hidden
+      margin-right .2rem
+      width .7rem
+      height .7rem
+      border-radius .35rem
   .evaluation-num
     display flex
     justify-content space-around
