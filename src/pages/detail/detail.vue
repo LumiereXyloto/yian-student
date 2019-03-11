@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <div>
-      <detail-header :title="title"></detail-header>
+      <detail-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></detail-header>
       <detail-content></detail-content>
     </div>
   </transition>
@@ -18,7 +18,9 @@ export default {
   },
   data () {
     return {
-      title: '兼职详情'
+      title: '兼职详情',
+      bgColor: '#409Eff',
+      fontColor: '#ffffff'
     }
   }
 }

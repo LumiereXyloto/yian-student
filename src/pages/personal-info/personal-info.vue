@@ -53,6 +53,7 @@ export default {
       bgColor: '#409Eff',
       fontColor: '#ffffff',
       school: '',
+      schoolId: '',
       studentIcon: '',
       studentName: '',
       studentPhone: '',
@@ -75,6 +76,7 @@ export default {
             this.studentWx = data.studentWx
             this.studentSex = data.studentSex
             this.school = data.school
+            this.schoolId = data.schoolId
           }
         })
     },
