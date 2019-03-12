@@ -60,15 +60,19 @@
       </div>
       <div class="item logout" @click="signOut">注 销 登 录</div>
     </div>
+
+    <evaluate></evaluate>
   </div>
 </template>
 
 <script>
+import Evaluate from 'components/evaluate/evaluate'
 import PersonalHeader from 'components/header/header'
 export default {
   name: 'Personal',
   components: {
-    PersonalHeader
+    PersonalHeader,
+    Evaluate
   },
   data () {
     return {
@@ -109,14 +113,14 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/assets/styles/varibles.styl'
-  a
-    color black
-  .bgWrapper
-    position fixed
-    z-index -1
-    width 100%
-    height 100%
-    background-color $color-background-grey
+    a
+      color black
+  // .bgWrapper
+  //   position fixed
+  //   z-index -1
+  //   width 100%
+  //   height 100%
+  //   background-color $color-background-grey
     .logoContainer
       display flex
       margin 1.22rem .26rem .36rem
