@@ -18,10 +18,18 @@
           </div>
         </router-link>
       </div>
+      <div class="item border-bottom">
+        <router-link to="/change-password">
+          <div>
+            密码服务
+            <img class="mini-image" src="@/assets/images/1.png">
+          </div>
+        </router-link>
+      </div>
       <div class="item item-margin-bottom">
         <router-link to="/certification">
           <div>
-            账号安全与认证
+            账号认证
             <img class="mini-image2" src="@/assets/images/2.png">
           </div>
         </router-link>
@@ -60,19 +68,15 @@
       </div>
       <div class="item logout" @click="signOut">注 销 登 录</div>
     </div>
-
-    <evaluate></evaluate>
   </div>
 </template>
 
 <script>
-import Evaluate from 'components/evaluate/evaluate'
 import PersonalHeader from 'components/header/header'
 export default {
   name: 'Personal',
   components: {
-    PersonalHeader,
-    Evaluate
+    PersonalHeader
   },
   data () {
     return {
@@ -173,7 +177,7 @@ export default {
       .item-margin-bottom
         margin-bottom .3rem
       .logout
-        margin-top .7rem
+        margin-top .4rem
         padding .3rem 0
         text-align center
         color $color-danger

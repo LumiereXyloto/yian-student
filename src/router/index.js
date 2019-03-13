@@ -13,6 +13,8 @@ import MyParttimejob from 'pages/my-parttimejob/my-parttimejob'
 import MyPreference from 'pages/preference/preference'
 import Feedback from 'pages/feedback/feedback'
 import Certification from 'pages/certification/certification'
+import ChangePassword from 'pages/change-password/change-password'
+import ForgetPassword from 'pages/change-password/forget-password'
 
 Vue.use(Router)
 
@@ -86,6 +88,16 @@ export default new Router({
       path: '/certification',
       name: 'Certification',
       component: Certification
+    },
+    {
+      path: '/change-password',
+      name: 'ChangePassword',
+      component: ChangePassword
+    },
+    {
+      path: '/forget-password/:uid',
+      name: 'ForgetPassword',
+      component: ForgetPassword
     }
   ]
 })
