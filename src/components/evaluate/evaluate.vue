@@ -6,7 +6,13 @@
         <div class="x" @click="close">x</div>
       </div>
       <div class="star-wrapper">
+        <div class="starXin" v-for="(item,index) in list" :key='index'>
+          <div @click="star(index)">
+            <img :src="starNum>index?stara:starb"/>
+          </div>
+        </div>
       </div>
+      <p class="starText">{{starText}}</p>
       <div class="evaluation-select">
         <div class="select-item" @click="handleItemClick" ref="item1">{{contentList[0].text}}</div>
         <div class="select-item" @click="handleItemClick" ref="item2">{{contentList[1].text}}</div>
@@ -24,6 +30,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   name: 'Evaluate',
   data () {
@@ -31,8 +38,17 @@ export default {
       contentList: [{text: '态度友善', id: 1}, {text: '不拖欠工资', id: 2}, {text: '按时下班', id: 3}, {text: '兼职愉快', id: 4}],
       evaluationInput: '',
       evaluationContent: '',
-      selectItem: []
+      selectItem: [],
+      list: [0, 1, 2],
+      stara: 'static/images/yellowStar.png', // 亮星星
+      starb: 'static/images/blankStar.png', // 暗星星
+      starNum: 0,
+      starText: ''
     }
+  },
+  props: {
+    jobId: String,
+    toUserId: String
   },
   methods: {
     handleItemClick (e) {
@@ -72,10 +88,31 @@ export default {
       }
       this.selectItem = []
     },
+    checkStarNum () {
+      if (this.starNum === 0) {
+        this.$layer.closeAll()
+        this.$layer.msg('请先为商家评星！')
+        return false
+      } else {
+        return true
+      }
+    },
+    evaluate () {
+      console.log(this.evaluationContent, this.starNum)
+      // this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/evaluate.do', qs.stringify({
+      //   jobId: this.jobId,
+      //   toUserId: this.toUserId,
+      //   content: this.evaluationContent,
+      //   level: this.starNum
+      // }))
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+    },
     submit () {
       this.checkContent()
-      if (this.evaluationContent) {
-        console.log(this.evaluationContent)
+      if (this.evaluationContent && this.checkStarNum()) {
+        this.evaluate()
       }
     },
     close () {
@@ -83,13 +120,31 @@ export default {
     },
     bindClose () {
       let _this = this
-      document.addEventListener('click', function(e) {
-        console.log(111)
-        _this.this.$refs.wrapper.style.display = 'none'
+      document.addEventListener('click', function (e) {
+        // console.log(e)
+        if (e.target.className === 'wrapper') {
+          _this.$refs.wrapper.style.display = 'none'
+        }
       })
     },
-    mounted () {
-      this.bindClose()
+    star (val) {
+      this.starNum = val + 1
+    }
+  },
+  mounted () {
+    this.bindClose()
+  },
+  watch: {
+    starNum () {
+      if (this.starNum === 0) {
+        this.starText = ''
+      } else if (this.starNum === 1) {
+        this.starText = '商家一般般吧'
+      } else if (this.starNum === 2) {
+        this.starText = '还不错噢'
+      } else if (this.starNum === 3) {
+        this.starText = '非常满意，无可挑剔'
+      }
     }
   }
 }
@@ -103,6 +158,21 @@ export default {
     height 100%
     z-index 10
     background-color rgba(0,0,0,0.5)
+    .star-wrapper
+      display flex
+      justify-content center
+      margin-top .3rem
+      margin-bottom .2rem
+      img
+        width .5rem
+        margin 0 .2rem
+    .starText
+      margin-bottom .2rem
+      height .3rem
+      line-height .3rem
+      text-align center
+      font-size .24rem
+      color #FCA31D
     .content-wrapper
       position fixed
       bottom 0
@@ -160,5 +230,4 @@ export default {
         font-size .36rem
         background-color #474B5B
         color #ffffff
-
 </style>
