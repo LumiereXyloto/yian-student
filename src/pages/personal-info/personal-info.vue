@@ -3,10 +3,9 @@
     <personal-info-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></personal-info-header>
     <div class="logoContainer">
       <div class="logo">
-        <img src="" alt="">
       </div>
       <div class="avatar-box">
-        <div class="avatar"></div>
+        <div class="avatar" @click="avatarClick"></div>
       </div>
     </div>
     <div class="info-wrapper">
@@ -36,19 +35,24 @@
       </div>
     </div>
     <div class="button" @click="saveChange">保 存</div>
+
+    <avatar-panel v-if="avatarFlag"></avatar-panel>
   </div>
 </template>
 
 <script>
 import qs from 'qs'
 import PersonalInfoHeader from 'components/header/header'
+import AvatarPanel from 'components/avatar-panel/avatar-panel'
 export default {
   name: 'PersonalInfo',
   components: {
-    PersonalInfoHeader
+    PersonalInfoHeader,
+    AvatarPanel
   },
   data () {
     return {
+      avatarFlag: false,
       title: '个人信息',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
@@ -92,6 +96,9 @@ export default {
         .then((res) => {
           console.log(res)
         })
+    },
+    avatarClick () {
+      this.avatarFlag = true
     }
   },
   mounted () {
