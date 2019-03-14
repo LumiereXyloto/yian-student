@@ -5,7 +5,7 @@
       <div class="logo">
       </div>
       <div class="avatar-box">
-        <div class="avatar" @click="avatarClick"></div>
+        <img class="avatar" @click="avatarClick" :src="iconUrl" v-show="iconUrl">
       </div>
     </div>
     <div class="info-wrapper">
@@ -36,7 +36,7 @@
     </div>
     <div class="button" @click="saveChange">保 存</div>
 
-    <avatar-panel v-if="avatarFlag"></avatar-panel>
+    <avatar-panel v-show="avatarFlag" @closePanel="changeAvatarFlag" @chooseIcon="chooseIcon"></avatar-panel>
   </div>
 </template>
 
@@ -63,7 +63,8 @@ export default {
       studentPhone: '',
       studentQQ: '',
       studentSex: '',
-      studentWx: ''
+      studentWx: '',
+      iconUrl: ''
     }
   },
   methods: {
@@ -81,6 +82,7 @@ export default {
             this.studentSex = data.studentSex
             this.school = data.school
             this.schoolId = data.schoolId
+            this.iconUrl = data.studentIcon
           }
         })
     },
@@ -99,6 +101,17 @@ export default {
     },
     avatarClick () {
       this.avatarFlag = true
+    },
+    changeAvatarFlag (b) {
+      if (b === true) {
+        this.avatarFlag = false
+      }
+    },
+    chooseIcon (b, url) {
+      if (b === true) {
+        this.avatarFlag = false
+        this.iconUrl = url
+      }
     }
   },
   mounted () {
@@ -128,6 +141,7 @@ export default {
         // background grey
         position relative
         .avatar
+          display block
           position absolute
           left .4rem
           top -0.3rem
