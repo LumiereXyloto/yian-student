@@ -3,10 +3,9 @@
     <personal-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></personal-header>
     <div class="logoContainer">
       <div class="logo">
-        <img src="" alt="">
       </div>
       <div class="avatar-box">
-        <div class="avatar"></div>
+        <img class="avatar" :src="iconUrl" v-show="iconUrl"/>
       </div>
     </div>
     <div class="wrapper">
@@ -22,7 +21,7 @@
         <router-link to="/change-password">
           <div>
             密码服务
-            <img class="mini-image" src="@/assets/images/1.png">
+            <img class="clock-image" src="@/assets/images/clock.png">
           </div>
         </router-link>
       </div>
@@ -82,7 +81,8 @@ export default {
     return {
       title: '个人中心',
       bgColor: '#409Eff',
-      fontColor: '#ffffff'
+      fontColor: '#ffffff',
+      iconUrl: ''
     }
   },
   methods: {
@@ -110,7 +110,20 @@ export default {
           _this.$layer.closeAll()
         }
       })
+    },
+    getPersonalInfo () {
+      this.axios.post('http://equator8848.xyz:8080/yian2/student/getPersonalInfor.do')
+        .then((res) => {
+          // console.log(res)
+          const data = res.data.data
+          if (res.data.status === 1) {
+            this.iconUrl = data.studentIcon
+          }
+        })
     }
+  },
+  mounted () {
+    this.getPersonalInfo()
   }
 }
 </script>
@@ -144,6 +157,7 @@ export default {
         // background grey
         position relative
         .avatar
+          display block
           position absolute
           left .4rem
           top -0.3rem
@@ -162,6 +176,12 @@ export default {
         position relative
         padding .3rem 0 .3rem 1.4rem
         background #ffffff
+        .clock-image
+          position absolute
+          left 0.4rem
+          bottom .2rem
+          width .52rem
+          height .52rem
         .mini-image
           position absolute
           left 0.44rem

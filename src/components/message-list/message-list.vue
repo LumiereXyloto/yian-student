@@ -10,6 +10,7 @@
         :key="index"
         @click="selectItem(item)"
       >
+        <div class="red-dot" v-show="dotFlag"></div>
         <span class="title">{{item.title}}</span>
         <span class="pushTime">{{item.pushTime}}</span>
         <div class="isRead">标为已读</div>
@@ -33,7 +34,8 @@ export default {
         isRead: ''
       }],
       clientNum: {}, // 记录开始滑动（x1）,结束滑动（x2）的鼠标指针的位置
-      candelete: {} // 滑动的item
+      candelete: {}, // 滑动的item
+      dotFlag: true
     }
   },
   methods: {
@@ -45,7 +47,9 @@ export default {
         withCredentials: true
       })
         .then((res) => {
+          console.log(res)
           this.normalizeList(res)
+          console.log(this.list)
         })
     },
     normalizeList (res) {
@@ -110,20 +114,23 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~styles/mixins'
-  li{
+  li
     background #fdfdfd
     line-height .86rem
     position relative
     transform translateX(0)
     transition all .3s /*滑动效果更生动*/
-    padding-left .2rem
-  }
-  ul{
+    padding-left .5rem
+    .red-dot
+      position absolute
+      width .2rem
+      height .2rem
+      border-radius .1rem
+      background-color #FC0208
+  ul
     overflow-x hidden /*隐藏ul x轴的滚动条*/
-  }
-  li.move {
+  li.move
     transform translateX(-2.4rem) /*滑动后x轴位移-60px,使其可见*/
-  }
   .title
     display inline-block
     max-width 50%

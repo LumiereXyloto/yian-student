@@ -36,7 +36,7 @@
     </div>
     <div class="button" @click="saveChange">保 存</div>
 
-    <avatar-panel v-show="avatarFlag" @closePanel="changeAvatarFlag" @chooseIcon="chooseIcon"></avatar-panel>
+    <avatar-panel v-if="avatarFlag" @closePanel="changeAvatarFlag" @chooseIcon="chooseIcon"></avatar-panel>
   </div>
 </template>
 
@@ -71,7 +71,7 @@ export default {
     getPersonalInfo () {
       this.axios.post('http://equator8848.xyz:8080/yian2/student/getPersonalInfor.do')
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           const data = res.data.data
           if (res.data.status === 1) {
             this.studentIcon = data.studentIcon

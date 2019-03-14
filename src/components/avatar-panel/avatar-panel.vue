@@ -31,12 +31,13 @@ export default {
     pages () {
       const pages = []
       this.iconList.forEach((item, index) => {
-        const page = Math.floor(index / 8)
+        const page = Math.floor(index / 12)
         if (!pages[page]) {
           pages[page] = []
         }
         pages[page].push(item)
       })
+      // console.log(pages)
       return pages
     }
   },
@@ -66,7 +67,7 @@ export default {
         icon: parseInt(item.id)
       }))
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.status === 200) {
             _this.$layer.closeAll()
             _this.$layer.msg(res.data.msg)
@@ -105,12 +106,14 @@ export default {
     width 85%
     height 50%
     z-index 999
+    border-radius .2rem
     .content-wrapper
       // width 85%
       // height 50%
       // z-index 999
       background-color #fff
-      border-radius .2rem
+      padding-top .4rem
+      // border-radius .2rem
       display flex
       flex-wrap wrap
       align-content flex-start
@@ -120,7 +123,7 @@ export default {
         // box-sizing border-box
         // border 1px solid grey
         text-align center
-        margin-top .4rem
+        margin-top .3rem
         .iconImage
           width 1.2rem
           height 1.2rem
