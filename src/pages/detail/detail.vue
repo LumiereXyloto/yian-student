@@ -1,10 +1,10 @@
 <template>
-  <transition name="slide">
+  <!-- <transition name="slide"> -->
     <div>
       <detail-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></detail-header>
       <detail-content></detail-content>
     </div>
-  </transition>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -27,9 +27,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~styles/varibles'
-  .slide-enter-active, .slide-leave-active
-    transition: all 0.3s ease
-  .slide-enter, .slide-leave-to
-    transform: translate3d(100%, 0, 0)
+// @import '~styles/varibles'
+//   .slide-enter-active, .slide-leave-active
+//     transition: all 0.3s ease
+//   .slide-enter, .slide-leave-to
+//     transform: translate3d(100%, 0, 0)
 </style>

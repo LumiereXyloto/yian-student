@@ -93,10 +93,10 @@ export default {
     },
     sendRequestSucc (res) {
       this.list = res.data.data
-      console.log(this.list)
+      // console.log(this.list)
     },
     toMerchantDetail () {
-      this.$router.push(`/evaluation/${this.list.merchantId}`)
+      this.$router.push(`/merchant-evaluation/${this.list.merchantId}`)
     },
     toggleSign () {
       let _this = this
@@ -115,8 +115,14 @@ export default {
               .then(res => {
                 console.log(res)
                 if (res.status === 200) {
+                  // 未报名的人报名后返回的消息。被商家拒绝报名res.data.status === 0
                   _this.$layer.closeAll()
                   _this.$layer.msg(res.data.msg)
+                  if (res.data.status === 1) {
+                    // 报名成功
+                    _this.buttonText = '取消报名'
+                    _this.nowNum += 1
+                  }
                 }
                 // if (res.data.status === 1) {
                 //   _this.$layer.closeAll()
@@ -128,7 +134,7 @@ export default {
         })
       } else {
         this.$layer.closeAll()
-        this.$layer.msg('无可删除消息！')
+        console.log(this.list.isSignOrNot)
       }
     }
   },

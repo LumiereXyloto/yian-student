@@ -15,6 +15,7 @@ import Feedback from 'pages/feedback/feedback'
 import Certification from 'pages/certification/certification'
 import ChangePassword from 'pages/change-password/change-password'
 import ForgetPassword from 'pages/change-password/forget-password'
+import MerchantEvaluation from 'pages/merchant-evaluation/merchant-evaluation'
 
 Vue.use(Router)
 
@@ -98,6 +99,11 @@ export default new Router({
       path: '/forget-password/:uid',
       name: 'ForgetPassword',
       component: ForgetPassword
+    },
+    {
+      path: '/merchant-evaluation/:userId',
+      name: 'MerchantEvaluation',
+      component: MerchantEvaluation
     }
   ]
 })

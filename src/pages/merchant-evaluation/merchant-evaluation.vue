@@ -41,7 +41,7 @@ export default {
   },
   data () {
     return {
-      title: '我的评价',
+      title: 'Ta的评价',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
       isSelected: true,
@@ -66,9 +66,10 @@ export default {
       this.isSelected = false
       this.activeList = this.outList
     },
-    getOwnInEvaluation () {
+    getOtherInEvaluation () {
       let _this = this
-      this.axios.get('http://equator8848.xyz:8080/yian2/evaluate/getOwnInEvaluation.do', qs.stringify({
+      this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/getOtherInEvaluation.do', qs.stringify({
+        userId: this.$route.params.userId,
         pageNum: '',
         pageSize: ''
       }))
@@ -78,9 +79,10 @@ export default {
           _this.activeList = _this.inList
         })
     },
-    getOwnOutEvaluation () {
+    getOtherOutEvaluation () {
       let _this = this
-      this.axios.get('http://equator8848.xyz:8080/yian2/evaluate/getOwnOutEvaluation.do', qs.stringify({
+      this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/getOtherOutEvaluation.do', qs.stringify({
+        userId: this.$route.params.userId,
         pageNum: '',
         pageSize: ''
       }))
@@ -109,8 +111,14 @@ export default {
       return ret
     },
     getEvaluationNumber () {
-      this.axios.get('http://equator8848.xyz:8080/yian2/evaluate/getOwnEvaluationData.do')
+      // console.log(this.$route.params.userId)
+      this.axios.get('http://equator8848.xyz:8080/yian2/evaluate/getOtherEvaluationData.do', {
+        params: {
+          userId: this.$route.params.userId
+        }
+      })
         .then((res) => {
+          console.log(res)
           const num = res.data.data
           this.goodNum = num.good_evaluation
           this.middleNum = num.middle_evaluation
@@ -122,8 +130,8 @@ export default {
   },
   mounted () {
     this.getEvaluationNumber()
-    this.getOwnInEvaluation()
-    this.getOwnOutEvaluation()
+    this.getOtherInEvaluation()
+    this.getOtherOutEvaluation()
   }
 }
 </script>
