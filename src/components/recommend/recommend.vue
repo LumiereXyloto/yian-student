@@ -1,27 +1,27 @@
 <template>
   <div>
     <div class="recommend-title" v-if="this.list.length>0">兼职推荐</div>
-      <ul>
-        <li
-          class="item border-bottom"
-          v-for="item of list"
-          :key="item.jobId"
-          @click="selectItem(item)"
-        >
-          <div class="item-img-wrapper">
-            <img src="@/assets/images/logo.png" class="item-img">
+    <ul>
+      <li
+        class="item border-bottom"
+        v-for="item of list"
+        :key="item.jobId"
+        @click="selectItem(item)"
+      >
+        <div class="item-img-wrapper">
+          <img src="@/assets/images/logo.png" class="item-img">
+        </div>
+        <div class="item-info">
+          <p class="item-brief">{{item.jobSummary}}</p>
+          <p class="item-time">{{item.address}}</p>
+          <p class="item-time">{{item.jobTime}}</p>
+          <div class="reward-and-num">
+            <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
+            <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
           </div>
-          <div class="item-info">
-            <p class="item-brief">{{item.jobSummary}}</p>
-            <p class="item-time">{{item.address}}</p>
-            <p class="item-time">{{item.jobTime}}</p>
-            <div class="reward-and-num">
-              <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
-              <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
-            </div>
-          </div>
-        </li>
-      </ul>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 

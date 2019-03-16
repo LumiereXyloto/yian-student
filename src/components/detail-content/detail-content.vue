@@ -179,8 +179,6 @@ export default {
   .button
     position fixed
     bottom .12rem
-    width 80%
-    margin 0 auto
     text-align center
     background-color $color-theme
     color #ffffff

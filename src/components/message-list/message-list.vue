@@ -1,38 +1,41 @@
 <template>
   <div>
-    <ul>
-      <li
-        v-for="(item,index) in list"
-        class="border-bottom"
-        :class="{move:candelete.id==item.id}"
-        @touchstart="touchStart(item)"
-        @touchend="touchEnd(item)"
-        :key="index"
-        @click="selectItem(item)"
-      >
-        <div class="red-dot" v-show="dotFlag"></div>
-        <span class="title">{{item.title}}</span>
-        <span class="pushTime">{{item.pushTime}}</span>
-        <div class="isRead">标为已读</div>
-        <div class="del" @click.stop="deleteItem(index, item)">删除</div>
-      </li>
-    </ul>
+    <!-- <scroll class="scroll-content" ref="scroll" :data="list"> -->
+      <ul>
+        <li
+          v-for="(item,index) in list"
+          class="border-bottom"
+          :class="{move:candelete.id==item.id}"
+          @touchstart="touchStart(item)"
+          @touchend="touchEnd(item)"
+          :key="index"
+          @click="selectItem(item)"
+        >
+          <div class="red-dot" v-show="!item.isRead"></div>
+          <span class="title">{{item.title}}</span>
+          <span class="pushTime">{{item.pushTime}}</span>
+          <div class="isRead" @click.stop="cancelRedDot(item)">标为已读</div>
+          <div class="del" @click.stop="deleteItem(index, item)">删除</div>
+        </li>
+      </ul>
+    <!-- </scroll> -->
+    <!-- <div class="totalNum">6</div> -->
+    <div class="deleteAll" @click="deleteAll">删除所有</div>
   </div>
 </template>
 
 <script>
 import qs from 'qs'
+// import Scroll from 'components/scroll/scroll'
 export default {
   name: 'MessageList',
+  // components: {
+  //   Scroll
+  // },
   data () {
     return {
       // 数据
-      list: [{
-        id: 1,
-        title: '您被拒绝报名兼职',
-        pushTime: '2019-02-18 17:30:04',
-        isRead: ''
-      }],
+      list: [],
       clientNum: {}, // 记录开始滑动（x1）,结束滑动（x2）的鼠标指针的位置
       candelete: {}, // 滑动的item
       dotFlag: true
@@ -47,9 +50,9 @@ export default {
         withCredentials: true
       })
         .then((res) => {
-          console.log(res)
           this.normalizeList(res)
-          console.log(this.list)
+          // this.$refs.scroll.refresh()
+          // console.log(this.list)
         })
     },
     normalizeList (res) {
@@ -71,10 +74,19 @@ export default {
         messageId: item.messageId
       }))
         .then((res) => {
-          console.log(res)
           if (res.data.status === 1) {
             this.list.splice(index, 1)
             // 删除数组某条数据，或者向某个位置添加数据
+          }
+        })
+    },
+    cancelRedDot (item) {
+      this.axios.post('http://equator8848.xyz:8080/yian2/message/getMessage.do', qs.stringify({
+        messageId: item.messageId
+      }))
+        .then((res) => {
+          if (res.status === 200) {
+            item.isRead = 1
           }
         })
     },
@@ -104,6 +116,32 @@ export default {
     },
     selectItem (item) {
       this.$router.push(`/message/${item.messageId}`)
+    },
+    deleteAll () {
+      let _this = this
+      if (this.list.length) {
+        this.$layer.closeAll()
+        this.$layer.open({
+          btn: ['确认', '取消'],
+          content: '确认删除所有消息？',
+          className: 'good luck1',
+          shade: true,
+          yes (index, $layer) {
+            _this.axios.post('http://equator8848.xyz:8080/yian2/message/delAllMessage.do')
+              .then(res => {
+                console.log(res)
+                if (res.data.status === 1) {
+                  _this.$layer.closeAll()
+                  _this.$layer.msg(res.data.msg)
+                  _this.list = []
+                }
+              })
+          }
+        })
+      } else {
+        this.$layer.closeAll()
+        this.$layer.msg('无可删除消息！')
+      }
     }
   },
   mounted () {
@@ -114,15 +152,33 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~styles/mixins'
+  // .totalNum
+  //   text-align center
+  //   position fixed
+  //   z-index 999
+  //   bottom .52rem
+  //   left 4rem
+  //   padding .02rem .03rem
+  //   border-radius .2rem
+  //   background-color #FC0208
+  //   color #ffffff
+  //   font-size .2rem
+  //   min-width .2rem
+  //   min-height .2rem
+  .scroll-content
+    height 100%
+    overflow hidden
   li
     background #fdfdfd
-    line-height .86rem
+    line-height 1.1rem
     position relative
     transform translateX(0)
     transition all .3s /*滑动效果更生动*/
     padding-left .5rem
     .red-dot
       position absolute
+      top .44rem
+      left .2rem
       width .2rem
       height .2rem
       border-radius .1rem
@@ -133,19 +189,20 @@ export default {
     transform translateX(-2.4rem) /*滑动后x轴位移-60px,使其可见*/
   .title
     display inline-block
-    max-width 50%
+    max-width 55%
     ellipsis()
     vertical-align: bottom /*解决overflow hidden和inline-block同时出现造成的高度变化问题*/
   .pushTime
     position absolute
     right .2rem
+    ellipsis()
   .isRead {
     position absolute
     top 0
     right -1px
     z-index: 3
     width 1.4rem
-    height .86rem
+    height 1.1rem
     text-align center
     color #ffffff
     background-color #F1AE42
@@ -157,10 +214,17 @@ export default {
     right -1px
     z-index: 3
     width 1rem
-    height .86rem
+    height 1.1rem
     text-align center
     color #ffffff
     background-color #ff5b45
     transform translateX(2.4rem) /*默认x轴位移60px，使其隐藏*/
   }
+  .deleteAll
+    position fixed
+    top 0.32rem
+    right 0.12rem
+    font-size .2rem
+    color #ffffff
+    z-index 999
 </style>

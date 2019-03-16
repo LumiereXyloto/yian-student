@@ -1,21 +1,14 @@
 <template>
-  <transition name="slide">
+  <!-- <transition name="slide"> -->
     <div class="wrapper">
-      <message-detail-header :title="title"></message-detail-header>
-      <div class="row-wrapper">
-        <div class="row-title">消息标题</div>
-        <div class="row-content">{{msgTitle}}</div>
-      </div>
-      <div class="row-wrapper">
-        <div class="row-title">推送时间</div>
-        <div class="row-content">{{pushTime}}</div>
-      </div>
-      <div class="row-wrapper">
-        <div class="row-title">消息详情</div>
-        <div class="row-content">{{content}}</div>
+      <message-detail-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></message-detail-header>
+      <div class="title">{{msgTitle}}</div>
+      <div class="border-wrapper">
+        <div class="content">{{content}}</div>
+        <div class="push-time">{{pushTime}}</div>
       </div>
     </div>
-  </transition>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -29,6 +22,8 @@ export default {
   data () {
     return {
       title: '消息详情',
+      bgColor: '#409Eff',
+      fontColor: '#ffffff',
       msgTitle: '',
       pushTime: '',
       content: ''
@@ -57,21 +52,32 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .slide-enter-active, .slide-leave-active
-    transition: all 0.3s ease
-  .slide-enter, .slide-leave-to
-    transform: translate3d(100%, 0, 0)
+  // .slide-enter-active, .slide-leave-active
+  //   transition: all 0.3s ease
+  // .slide-enter, .slide-leave-to
+  //   transform: translate3d(100%, 0, 0)
   .wrapper
-    margin .9rem 0 0
-    .row-wrapper
-      margin-top .5rem
-      .row-title
-        margin-top: .2rem
-        background: #eeeeee
-        line-height: .7rem
-        text-indent: .2rem
-      .row-content
-        font-size .28rem
-        margin .2rem .2rem 0
+    margin 1.1rem 0 0
+    .title
+      margin .3rem .2rem
+      background #ffffff
+      line-height .86rem
+      text-align center
+      border-radius .2rem
+    .border-wrapper
+      border-radius .2rem
+      overflow hidden
+      margin 0 .2rem
+    .content
+      font-size .28rem
+      background-color #ffffff
+      padding .6rem .4rem
+      line-height .36rem
+    .push-time
+      font-size .28rem
+      text-align right
+      background-color #ffffff
+      padding 0 .4rem .6rem
+      line-height .36rem
 
 </style>

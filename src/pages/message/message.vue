@@ -1,7 +1,7 @@
 <template>
   <div>
-    <message-header :title="title"></message-header>
-    <img src="/static/images/banner.png" class="banner">
+    <message-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></message-header>
+    <img src="@/assets/images/message.png" class="banner">
     <message-list></message-list>
   </div>
 </template>
@@ -17,7 +17,9 @@ export default {
   },
   data () {
     return {
-      title: '我的消息'
+      title: '我的消息',
+      bgColor: '#409Eff',
+      fontColor: '#ffffff'
     }
   }
 }
@@ -28,5 +30,7 @@ export default {
   .banner
     display block
     width 100%
-    margin-top $headerHeight
+    height 2.82rem
+    margin-top 1rem
+    margin-bottom .14rem
 </style>
