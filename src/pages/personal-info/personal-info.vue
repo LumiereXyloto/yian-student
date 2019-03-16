@@ -87,8 +87,9 @@ export default {
         })
     },
     saveChange () {
+      let _this = this
       this.axios.post('http://equator8848.xyz:8080/yian2/student/updateStudentInfor.do', qs.stringify({
-        school: this.school,
+        school: parseInt(this.schoolId),
         studentSex: this.studentSex,
         studentPhone: this.studentPhone,
         qq: this.studentQQ,
@@ -96,7 +97,10 @@ export default {
         studentName: this.studentName
       }))
         .then((res) => {
-          console.log(res)
+          if (res.data.status === 1) {
+            _this.$layer.closeAll()
+            _this.$layer.msg(res.data.msg)
+          }
         })
     },
     avatarClick () {

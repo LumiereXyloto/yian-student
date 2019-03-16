@@ -58,7 +58,7 @@ export default {
     getCheckStatus () {
       this.axios.get('http://equator8848.xyz:8080/yian2/student/getCheckStatus.do')
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.data.status === 1) {
             this.statusText = this.transformStatus(res.data.data.scheckStatus)
             this.schoolName = res.data.data.schoolName || '未知大学'
@@ -89,7 +89,6 @@ export default {
     },
     // 上传到服务器
     uploadToServer () {
-      console.log('添加')
       let _this = this
       let file = this.$refs.file.files[0]
       let formData = new FormData()
@@ -98,7 +97,6 @@ export default {
         headers: {'Content-Type': 'multipart/form-data'}
       })
         .then(res => {
-          console.log(res)
           if (res.data.status === 1) {
             _this.$layer.closeAll()
             _this.$layer.msg('添加成功，请点击上传')
@@ -112,6 +110,7 @@ export default {
         })
     },
     confirmUpload () {
+      let _this = this
       if (!this.addFlag) {
         this.$layer.closeAll()
         this.$layer.msg('请先添加认证图片')
@@ -120,7 +119,13 @@ export default {
           img: this.imageUrl
         }))
           .then((res) => {
-            console.log(res)
+            if (res.data.status === 1) {
+              _this.$layer.closeAll()
+              _this.$layer.msg(res.data.msg)
+            } else {
+              _this.$layer.closeAll()
+              _this.$layer.msg(res.data.msg)
+            }
           })
       }
     },

@@ -44,11 +44,11 @@
         </div>
         <div class="row-wrapper">
           <span class="grey">他的评价：</span>
-          <span class="black"  @click="toMerchantDetail">点击查看</span>
+          <span class="black" @click="toMerchantDetail">点击查看</span>
         </div>
       </div>
 
-      <div class="button">{{buttonText}}</div>
+      <div class="button" @click="toggleSign">{{buttonText}}</div>
       <!-- <div class="warn border-bottom">(提示：凡收取费用的兼职，需谨慎 ! )</div> -->
     </div>
   </div>
@@ -93,9 +93,43 @@ export default {
     },
     sendRequestSucc (res) {
       this.list = res.data.data
+      console.log(this.list)
     },
     toMerchantDetail () {
       this.$router.push(`/evaluation/${this.list.merchantId}`)
+    },
+    toggleSign () {
+      let _this = this
+      if (this.list.isSignOrNot === '0') {
+        this.$layer.closeAll()
+        this.$layer.open({
+          btn: ['确认', '取消'],
+          content: '确认报名？',
+          className: 'good luck1',
+          shade: true,
+          yes (index, $layer) {
+            _this.axios.post('http://equator8848.xyz:8080/yian2/parttimeHall/applyParttime.do', qs.stringify({
+              jobId: _this.list.jobId,
+              merchantId: _this.list.merchantId
+            }))
+              .then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                  _this.$layer.closeAll()
+                  _this.$layer.msg(res.data.msg)
+                }
+                // if (res.data.status === 1) {
+                //   _this.$layer.closeAll()
+                //   _this.$layer.msg(res.data.msg)
+                //   _this.list = []
+                // }
+              })
+          }
+        })
+      } else {
+        this.$layer.closeAll()
+        this.$layer.msg('无可删除消息！')
+      }
     }
   },
   mounted () {
@@ -178,7 +212,9 @@ export default {
   //   font-size .26rem
   .button
     position fixed
-    bottom .12rem
+    left 0
+    bottom 0
+    width 100%
     text-align center
     background-color $color-theme
     color #ffffff
