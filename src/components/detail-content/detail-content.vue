@@ -12,7 +12,7 @@
       <div class="border-container">
         <div class="row-wrapper">
           <span class="grey">兼职类型：</span>
-          <span class="black">{{list.jobType}}</span>
+          <span class="black">{{list.normalizedJobType}}</span>
         </div>
         <div class="row-wrapper">
           <span class="grey">招聘人数：</span>
@@ -68,6 +68,7 @@ export default {
         reward: '',
         rewardType: '',
         jobType: '',
+        normalizedJobType: '',
         hireNum: '',
         nowNum: '',
         details: '',
@@ -76,7 +77,7 @@ export default {
         merchantId: '',
         isSignOrNot: ''
       },
-      buttonText: '立即报名'
+      buttonText: ''
     }
   },
   methods: {
@@ -93,6 +94,8 @@ export default {
     },
     sendRequestSucc (res) {
       this.list = res.data.data
+      this.getButtonText()
+      this.list.normalizedJobType = this.normalizeJobType(res.data.data.jobType)
       // console.log(this.list)
     },
     toMerchantDetail () {
@@ -113,15 +116,15 @@ export default {
               merchantId: _this.list.merchantId
             }))
               .then(res => {
-                console.log(res)
                 if (res.status === 200) {
                   // 未报名的人报名后返回的消息。被商家拒绝报名res.data.status === 0
                   _this.$layer.closeAll()
                   _this.$layer.msg(res.data.msg)
                   if (res.data.status === 1) {
+                    _this.list.isSignOrNot = '1'
                     // 报名成功
                     _this.buttonText = '取消报名'
-                    _this.nowNum += 1
+                    _this.list.nowNum += 1
                   }
                 }
                 // if (res.data.status === 1) {
@@ -134,7 +137,60 @@ export default {
         })
       } else {
         this.$layer.closeAll()
-        console.log(this.list.isSignOrNot)
+        this.$layer.open({
+          btn: ['确认', '取消'],
+          content: '确认取消？',
+          className: 'good luck1',
+          shade: true,
+          yes (index, $layer) {
+            _this.axios.post('http://equator8848.xyz:8080/yian2/parttimeHall/cancelParttime.do', qs.stringify({
+              jobId: _this.list.jobId
+            }))
+              .then(res => {
+                // console.log(res)
+                if (res.status === 200) {
+                  // 未报名的人报名后返回的消息。被商家拒绝报名res.data.status === 0
+                  _this.$layer.closeAll()
+                  _this.$layer.msg(res.data.msg)
+                  if (res.data.status === 1) {
+                    // 取消成功
+                    _this.buttonText = '立即报名'
+                    _this.list.isSignOrNot = '0'
+                    _this.list.nowNum -= 1
+                  }
+                }
+              })
+          }
+        })
+      }
+    },
+    getButtonText () {
+      if (this.list.isSignOrNot === '0') {
+        this.buttonText = '立即报名'
+      } else {
+        this.buttonText = '取消报名'
+      }
+    },
+    normalizeJobType (jobType) {
+      switch (jobType) {
+        case 1:
+          return '家教'
+        case 2:
+          return '服务员'
+        case 3:
+          return '接待员'
+        case 4:
+          return '安保人员'
+        case 5:
+          return '推广促销'
+        case 6:
+          return '翻译'
+        case 7:
+          return '话务员'
+        case 8:
+          return '实习生'
+        case 9:
+          return '收银员'
       }
     }
   },

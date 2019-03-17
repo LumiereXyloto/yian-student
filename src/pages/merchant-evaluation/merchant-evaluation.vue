@@ -2,7 +2,7 @@
   <div>
     <evaluation-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></evaluation-header>
     <div class="user-info border-bottom">
-      <img :src="icon" class="avatar">
+      <img :src="icon" class="avatar" v-if="this.icon">
       {{name}}
     </div>
     <div class="evaluation-num">
@@ -118,7 +118,7 @@ export default {
         }
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           const num = res.data.data
           this.goodNum = num.good_evaluation
           this.middleNum = num.middle_evaluation

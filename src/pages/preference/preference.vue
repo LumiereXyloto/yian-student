@@ -1,27 +1,14 @@
 <template>
   <div>
-    <div>
-      <router-link
-        tag="div"
-        to="/personal"
-        class="header-abs"
-        v-show="showAbs"
-      >
-        <div class="iconfont header-abs-back">&#xe624;</div>
-      </router-link>
-      <div
-        class="header-fixed"
-        v-show="!showAbs"
-        :style="opacityStyle"
-      >
-        <router-link to="/user">
-          <div class="iconfont header-fixed-back">&#xe624;</div>
-        </router-link>
-        我的关注
-      </div>
-    </div>
-    <div class="banner">
-      <img src="@/assets/images/banner.png" alt="gg">
+    <preference-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></preference-header>
+    <div class="isPush">
+      <span>接收推送通知</span>
+      <preference-switch
+        :value="value"
+        :handle="true"
+        @changeSwitch="changeSwitch"
+        class="prefer-switch"
+      ></preference-switch>
     </div>
     <div id="trigger2">修改偏好</div>
     <div class="block-title">我的偏好</div>
@@ -54,15 +41,21 @@
 import qs from 'qs'
 import MobileSelect from 'mobile-select'
 import axios from 'axios'
+import PreferenceHeader from 'components/header/header'
+import PreferenceSwitch from 'components/switch/switch'
 axios.defaults.withCredentials = true
 export default {
   name: 'DetailHeader',
+  components: {
+    PreferenceHeader,
+    PreferenceSwitch
+  },
   data () {
     return {
-      showAbs: true,
-      opacityStyle: {
-        opacity: 0
-      },
+      title: '我的偏好',
+      bgColor: '#409Eff',
+      fontColor: '#ffffff',
+      value: true, // switch默认状态
       chooseList: [{
         id: '1',
         value: '家教',
@@ -667,33 +660,20 @@ export default {
           }]
         }]
       }],
-      jobTypeId: '',
-      rewardTypeId: '',
-      rewardId: '',
+      jobType: '',
+      rewardType: '',
+      reward: '',
       preferList: []
     }
   },
   methods: {
-    handleScroll () {
-      const top = document.documentElement.scrollTop
-      if (top > 60) {
-        let opacity = top / 140
-        opacity = opacity > 1 ? 1 : opacity
-        this.opacityStyle = {
-          opacity: opacity
-        }
-        this.showAbs = false
-      } else {
-        this.showAbs = true
-      }
-    },
     sendChangeRequest () {
       let _this = this
-      console.log(this.jobTypeId, this.rewardTypeId, this.rewardId)
+      console.log(this.jobType, this.rewardType, this.reward)
       axios.post('http://equator8848.xyz:8080/yian2/preference/changePreferenceJobType.do', qs.stringify({
-        jobTpyeId: this.jobTypeId,
-        rewadTypeId: this.rewardTypeId,
-        rewadId: this.rewardId
+        jobTpye: this.jobType,
+        rewadType: this.rewardType,
+        reward: this.reward
       }))
         .then(res => {
           _this.$layer.closeAll()
@@ -706,15 +686,12 @@ export default {
       axios.post('http://equator8848.xyz:8080/yian2/preference/getAttentionedType.do')
         .then(res => {
           _this.preferList = res.data.data
-          console.log(_this.preferList)
+          // console.log(_this.preferList)
         })
+    },
+    changeSwitch (checked) {
+      console.log(checked)
     }
-  },
-  activated () {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  deactivated () {
-    window.removeEventListener('scroll', this.handleScroll)
   },
   mounted () {
     let _this = this
@@ -730,10 +707,10 @@ export default {
       },
       callback: function (indexArr, data) {
         console.log(data)
-        _this.jobTypeId = data[0].id
-        _this.rewardTypeId = data[1].id
-        _this.rewardId = data[2].value
-        if (_this.jobTypeId && _this.rewardTypeId && _this.rewardId) {
+        _this.jobType = data[0].id
+        _this.rewardType = data[1].id
+        _this.reward = data[2].value
+        if (_this.jobType && _this.rewardType && _this.reward) {
           _this.sendChangeRequest()
         }
       }
@@ -744,55 +721,32 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/assets/styles/mixins.styl';
-@import '~@/assets/styles/varibles.styl';
-  .header-abs
-    text-align: center
-    position: absolute
-    left: .2rem
-    top: .2rem
-    width: .8rem
-    height: .8rem
-    line-height: .8rem
-    border-radius: .4rem
-    background: rgba(0, 0, 0, .3)
-    .header-abs-back
-      color: #ffffff
-      font-size: .4rem
-  .header-fixed
-    position: fixed
-    z-index: 2
-    top: 0
-    left: 0
-    right: 0
-    overflow: hidden
-    height: $headerHeight
-    line-height: $headerHeight
-    text-align: center
-    color: #fff
-    background: $bgColor
-    font-size: .32rem
-    .header-fixed-back
-      width: .64rem
-      text-align: center
-      font-size: .4rem
-      position: absolute
-      top: 0
-      left: 0
-      color: #ffffff
-  .banner
-    background-color #A6DCFD
-  .banner img
-    width 100%
+@import '~@/assets/styles/mixins.styl'
+@import '~@/assets/styles/varibles.styl'
+  .isPush
+    position relative
+    margin 1.06rem .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
+    span
+      position absolute
+      left .2rem
+    .prefer-switch
+      position absolute
+      top .2rem
+      right .2rem
+  li
+    background-color #ffffff
   #trigger2
     background-color #ffffff
-    height .6rem
-    line-height .6rem
+    height .8rem
+    line-height .8rem
     text-align center
-    margin .3rem 1rem
+    margin 0.2rem .12rem
     color $bgColor
     border-radius .1rem
-    border 1px solid #adadad
   .block-title
     background-color #EEEEEE
     font-size .28rem
