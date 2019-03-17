@@ -10,8 +10,11 @@
         class="prefer-switch"
       ></preference-switch>
     </div>
-    <div id="trigger2">修改偏好</div>
-    <div class="block-title">我的偏好</div>
+    <div id="trigger2" ref="trigger2">
+      {{triggerText}}
+      <span>></span>
+    </div>
+    <div class="block-title">{{listTitle}}</div>
     <ul>
       <router-link
         tag="li"
@@ -55,7 +58,9 @@ export default {
       title: '我的偏好',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
-      value: true, // switch默认状态
+      value: false, // switch默认状态
+      triggerText: '',
+      listTitle: '',
       chooseList: [{
         id: '1',
         value: '家教',
@@ -667,33 +672,110 @@ export default {
     }
   },
   methods: {
+    normalizeJobType (jobType) {
+      switch (jobType) {
+        case 1:
+          return '家教'
+        case 2:
+          return '服务员'
+        case 3:
+          return '接待员'
+        case 4:
+          return '安保人员'
+        case 5:
+          return '推广促销'
+        case 6:
+          return '翻译'
+        case 7:
+          return '话务员'
+        case 8:
+          return '实习生'
+        case 9:
+          return '收银员'
+      }
+    },
+    normalizeRewardType (rewardType) {
+      switch (rewardType) {
+        case 0:
+          return '小时'
+        case 1:
+          return '天'
+        case 2:
+          return '月'
+      }
+    },
     sendChangeRequest () {
       let _this = this
-      console.log(this.jobType, this.rewardType, this.reward)
       axios.post('http://equator8848.xyz:8080/yian2/preference/changePreferenceJobType.do', qs.stringify({
-        jobTpye: this.jobType,
-        rewadType: this.rewardType,
+        jobType: this.jobType,
+        rewardType: this.rewardType,
         reward: this.reward
       }))
-        .then(res => {
-          _this.$layer.closeAll()
-          _this.$layer.msg(res.data.msg)
-          _this.sendPreferRequest()
+        .then((res) => {
+          // console.log(res)
+          if (res.data.status === 1) {
+            _this.triggerText = `兼职类型：${_this.normalizeJobType(parseInt(_this.jobType))} 基本工资：${_this.reward}元/${_this.normalizeRewardType(parseInt(_this.rewardType))}`
+            // console.log(_this.triggerText)
+            _this.$refs.trigger2.innerHTML = _this.triggerText
+            _this.$layer.closeAll()
+            _this.$layer.msg(res.data.msg)
+            _this.sendPreferRequest()
+          }
         })
     },
     sendPreferRequest () {
       let _this = this
       axios.post('http://equator8848.xyz:8080/yian2/preference/getAttentionedType.do')
         .then(res => {
-          _this.preferList = res.data.data
+          // console.log(res)
+          if (res.data.status === 1) {
+            if (res.data.data.isMark.length === 0) {
+              _this.$layer.closeAll()
+              _this.$layer.msg('抱歉，暂无满足该条件的兼职')
+              _this.listTitle = '相似推荐'
+              _this.preferList = res.data.data.isNotMark
+            } else {
+              _this.listTitle = '我的偏好'
+              _this.preferList = res.data.data.isMark
+            }
+          }
           // console.log(_this.preferList)
         })
     },
     changeSwitch (checked) {
       console.log(checked)
+      let switchStatus = 0
+      if (checked) {
+        switchStatus = 1
+      } else {
+        switchStatus = 0
+      }
+      this.axios.post('http://equator8848.xyz:8080/yian2/preference/switchSatus.do', qs.stringify({
+        switchStatus: switchStatus
+      }))
+        .then((res) => {
+          console.log(res)
+        })
+    },
+    getPreferType () {
+      this.axios.post('http://equator8848.xyz:8080/yian2/preference/getPreferenceJobType.do')
+        .then((res) => {
+          // console.log(res)
+          if (res.data.status === 1) {
+            const data = res.data.data
+            if (data.switch_status === 1) {
+              this.value = true
+            } else {
+              this.value = false
+            }
+            this.triggerText = `兼职类型：${this.normalizeJobType(data.jobType)} 基本工资：${data.reward}元/${this.normalizeRewardType(data.rewardType)}`
+            // console.log(this.triggerText)
+          }
+        })
     }
   },
   mounted () {
+    this.getPreferType()
     let _this = this
     var mobileSelect2 = new MobileSelect({// eslint-disable-line
       trigger: '#trigger2',
@@ -706,7 +788,7 @@ export default {
         // console.log(data)
       },
       callback: function (indexArr, data) {
-        console.log(data)
+        // console.log(data) // 选择的轮子的数据
         _this.jobType = data[0].id
         _this.rewardType = data[1].id
         _this.reward = data[2].value
@@ -723,6 +805,10 @@ export default {
 <style lang="stylus" scoped>
 @import '~@/assets/styles/mixins.styl'
 @import '~@/assets/styles/varibles.styl'
+  ul
+    margin 0 .12rem
+    border-radius .2rem
+    overflow hidden
   .isPush
     position relative
     margin 1.06rem .12rem 0
@@ -740,6 +826,7 @@ export default {
   li
     background-color #ffffff
   #trigger2
+    position relative
     background-color #ffffff
     height .8rem
     line-height .8rem
@@ -747,11 +834,17 @@ export default {
     margin 0.2rem .12rem
     color $bgColor
     border-radius .1rem
+    font-size .24rem
+    span
+      position absolute
+      right .3rem
+      color #acacac
+      font-size .3rem
   .block-title
-    background-color #EEEEEE
+    background-color #E3E3E3
     font-size .28rem
-    height .8rem
-    line-height .8rem
+    height .7rem
+    line-height .7rem
     margin-bottom .2rem
     padding 0 .2rem
   .item
