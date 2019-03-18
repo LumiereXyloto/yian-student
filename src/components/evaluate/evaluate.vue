@@ -98,16 +98,26 @@ export default {
       }
     },
     evaluate () {
+      let _this = this
       console.log(this.evaluationContent, this.starNum)
-      // this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/evaluate.do', qs.stringify({
-      //   jobId: this.jobId,
-      //   toUserId: this.toUserId,
-      //   content: this.evaluationContent,
-      //   level: this.starNum
-      // }))
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
+      console.log(this.jobId, this.toUserId)
+      this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/evaluate.do', qs.stringify({
+        jobId: this.jobId,
+        toUserId: this.toUserId,
+        content: this.evaluationContent,
+        level: this.starNum
+      }))
+        .then((res) => {
+          if (res.data.status === 1) {
+            _this.$layer.closeAll()
+            _this.$layer.msg(res.data.msg)
+            _this.$emit('changeEvaluateShow')
+          } else if (res.data.status === -1) {
+            _this.$layer.closeAll()
+            _this.$layer.msg(res.data.msg)
+            _this.$emit('changeEvaluateShow')
+          }
+        })
     },
     submit () {
       this.checkContent()
@@ -116,6 +126,7 @@ export default {
       }
     },
     close () {
+      this.$emit('changeEvaluateShow')
       this.$refs.wrapper.style.display = 'none'
     },
     bindClose () {
@@ -123,6 +134,7 @@ export default {
       document.addEventListener('click', function (e) {
         // console.log(e)
         if (e.target.className === 'wrapper') {
+          _this.$emit('changeEvaluateShow')
           _this.$refs.wrapper.style.display = 'none'
         }
       })

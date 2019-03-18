@@ -12,11 +12,24 @@
     </div>
     <transition name="slide-fade">
       <div class="contentArea" v-show="isclicked" >
-        <div class="contentItem" v-for="(item, index) in content" :key="index" @click="toDetail(item.jobId)">
-          <p class="contentTitle">{{item.title}}</p>
-          <span class="contentTime">{{item.jobTime}}</span>
-        </div>
-        <div>{{this.msg}}</div>
+        <ul>
+          <li
+            class="item border-bottom"
+            v-for="item of content"
+            :key="item.jobId"
+            @click="toDetail(item.jobId, item.merchantId)"
+          >
+            <div class="item-img-wrapper">
+              <img src="@/assets/images/logo.png" class="item-img">
+            </div>
+            <div class="item-info">
+              <p class="item-brief">{{item.title}}</p>
+              <p class="item-time">{{item.jobDetail}}</p>
+              <p class="item-time">{{item.signTime}}</p>
+            </div>
+          </li>
+        </ul>
+        <div class="tip" v-show="!this.content.length>0">{{msg}}</div>
       </div>
     </transition>
   </div>
@@ -40,6 +53,10 @@ export default {
     content: {
       type: Array
     },
+    evaluateFlag: {
+      type: Boolean,
+      default: false
+    },
     msg: {
       type: String
     }
@@ -52,24 +69,41 @@ export default {
       this.$emit('beClicked')
     },
     // 点击兼职前往详情页
-    toDetail (id) {
-      this.$router.push('/detail/' + id)
+    toDetail (jobId, merchantId) {
+      if (!this.evaluateFlag) {
+        this.$router.push('/detail/' + jobId)
+      } else {
+        this.$emit('toEvaluate', jobId, merchantId)
+      }
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~@/assets/styles/varibles'
+@import '~@/assets/styles/mixins.styl'
+@import '~@/assets/styles/varibles.styl'
+  ul
+    margin .2rem .12rem 0
+    border-radius .2rem
+    overflow hidden
+  .tip
+    text-align center
+    margin 0 .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
   .wrapper
-    margin-top .2rem
+    margin .3rem .12rem 0
   .boardBeforeClick
     width 100%
     height 1.2rem
     line-height 1.2rem
-    background $color-info
+    background #ffffff
     text-align center
     overflow hidden
+    border-radius .1rem
     .iconBeforeClick
       width .5rem
       height .5rem
@@ -83,6 +117,8 @@ export default {
     background $color-theme
     text-align center
     overflow hidden
+    border-radius .1rem
+    color #ffffff
     .iconAfterClick
       width .5rem
       height .5rem
@@ -91,27 +127,29 @@ export default {
       transform: rotate(90deg)
       transform-origin: center bottom
       color $color-text
-  .titleText
-    color $color-text
-    font-size $font-size-large
-  .contentItem
-    position relative
-    width 90%
-    height 1.2rem
-    background $color-theme-light
-    margin .2rem 5%
-    padding-top .1rem
-    border-radius .1rem
-    .contentTitle
-      font-size $font-size-large-x
-      text-align center
-      color $color-text
-    .contentTime
-      position absolute
-      font-size $font-size-medium
-      color $color-text-ll
-      right .4rem
-      bottom 0
+  .item
+    display flex
+    background-color #ffffff
+    .item-img-wrapper
+      display flex
+      justify-content center
+      align-items center
+      height 2rem
+      .item-img
+        width 1.2rem
+        height 1.2rem
+        padding .3rem
+    .item-info
+      padding: .1rem
+      min-width: 0
+      .item-time
+        ellipsis()
+        color #ADADAD
+        padding .1rem 0
+      .item-brief
+        ellipsis()
+        font-size .36rem
+        padding .24rem 0 .1rem
   .slide-fade-enter-active
     transition: all .3s ease
   .slide-fade-leave-active
