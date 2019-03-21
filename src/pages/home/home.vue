@@ -6,6 +6,7 @@
         <home-jobtype></home-jobtype>
         <home-recommend></home-recommend>
       </div>
+      <div style="height:0.86rem"></div>
     <!-- </scroll> -->
   </div>
 </template>

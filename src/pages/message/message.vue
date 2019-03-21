@@ -3,6 +3,7 @@
     <message-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></message-header>
     <img src="@/assets/images/message.png" class="banner">
     <message-list></message-list>
+    <div style="height:0.86rem"></div>
   </div>
 </template>
 

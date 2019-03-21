@@ -67,6 +67,7 @@
       </div>
       <div class="item logout" @click="signOut">注 销 登 录</div>
     </div>
+    <div style="height:0.86rem"></div>
   </div>
 </template>
 

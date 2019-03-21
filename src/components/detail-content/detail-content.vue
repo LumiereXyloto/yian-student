@@ -49,6 +49,7 @@
       </div>
 
       <div class="button" @click="toggleSign">{{buttonText}}</div>
+      <div style="height:0.86rem"></div>
       <!-- <div class="warn border-bottom">(提示：凡收取费用的兼职，需谨慎 ! )</div> -->
     </div>
   </div>

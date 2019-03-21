@@ -1,14 +1,29 @@
 <template>
   <div class="wrapper">
     <div class="header-info">
-      欢迎注册易安账号（学生）
+      <img src="@/assets/images/welcome.png">
     </div>
     <div class="input-wrapper">
-      <input class="input" v-model="list.uid" type="text" placeholder="输入邮箱地址作为账号" @blur="checkEmail">
-      <input class="input" v-model="list.ps" type="password" placeholder="请设置密码(6-16位)" @blur="checkPs">
-      <input class="input" v-model="list.psw" type="password" placeholder="请确认密码" @blur="checkPsw">
-      <input class="input" v-model="list.schoolName" type="text" placeholder="点击选择学校" @focus="clickTrigger">
-      <input class="input code-input" v-model="list.authCode" type="text" placeholder="请输入验证码">
+      <div class="icon-wrapper">
+        <input class="input" v-model="list.uid" type="text" placeholder="输入邮箱地址作为账号" @blur="checkEmail">
+        <img src="@/assets/images/uid.png">
+      </div>
+      <div class="icon-wrapper">
+        <input class="input" v-model="list.ps" type="password" placeholder="请设置密码(6-16位)" @blur="checkPs">
+        <img src="@/assets/images/pwd.png">
+      </div>
+      <div class="icon-wrapper">
+        <input class="input" v-model="list.psw" type="password" placeholder="请确认密码" @blur="checkPsw">
+        <img src="@/assets/images/pwd.png">
+      </div>
+      <div class="icon-wrapper">
+        <input class="input" v-model="list.schoolName" type="text" placeholder="点击选择学校" @focus="clickTrigger">
+        <img src="@/assets/images/pwd.png">
+      </div>
+      <div class="icon-wrapper">
+        <input class="input code-input" v-model="list.authCode" type="text" placeholder="请输入验证码">
+        <img src="@/assets/images/pwd.png">
+      </div>
       <div class="code" @click="flag && sendCode()" ref="text">点击获取验证码</div>
     </div>
     <div class="login-button" @click="sendInfo">注册</div>
@@ -19,12 +34,8 @@
       <span class="color-text">《隐私权条款》</span>
     </div> -->
     <div class="footer-info">
-      <span>已有账号？</span>
-      <router-link to="/login">
-        <span class="color-text underline-text">立即登录</span>
-      </router-link>
+      <img src="@/assets/images/school.png">
     </div>
-    <div class="school">看看哪些高校在使用易安兼职？</div>
     <div id="trigger1" ref="trigger"></div>
   </div>
 </template>
@@ -71,6 +82,7 @@ export default {
       if (res.data.status === 2000) {
         this.$layer.closeAll()
         this.$layer.msg(res.data.msg)
+        this.$router.push('/login')
       } else if (res.data.status === 4001) {
         this.$layer.closeAll()
         this.$layer.msg(res.data.msg)
@@ -226,21 +238,33 @@ export default {
   input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     color: $color-input-grey
   }
+  .wrapper
+    position fixed
+    width 100%
+    height 100%
+    background-color #fff
   .header-info
     padding .2rem 0
-    margin-bottom .2rem
-    background-color $color-theme
+    margin .4rem 0
+    background-color #ffffff
     text-align center
     color #ffffff
     font-size .3rem
+    img
+      width 80%
+      height auto
+      image-rendering: -moz-crisp-edges; /* Firefox */
+      image-rendering: -o-crisp-edges; /* Opera */
+      image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
   .input-wrapper
-    display: flex
-    flex-direction: column
+    text-align center
     .input
+      width 75%
       border-bottom: .02rem solid #CECECE
-      padding: .2rem
-      margin: .4rem
-      margin-top: .15rem
+      padding: .2rem .2rem .06rem .9rem
+      margin: .2rem .4rem .3rem
     .code
       color $color-theme
       text-decoration underline
@@ -256,20 +280,18 @@ export default {
     text-align center
     border-radius .1rem
   .footer-info
-    display flex
-    justify-content center
-    margin-top .5rem
-    font-size $font-size-small-x
-    .color-text
-      color $color-theme
-      font-size $font-size-small-x
-    .underline-text
-      text-decoration underline
-  .school
-    font-size $font-size-small-x
+    position fixed
+    bottom .2rem
     text-align center
-    margin-top 1.2rem
-    color $color-input-grey-d
+    img
+      width 95%
   #trigger1
     display none
+  .icon-wrapper
+    position relative
+    img
+      position absolute
+      left .7rem
+      top .3rem
+      width .4rem
 </style>

@@ -14,7 +14,7 @@
     <!-- 根据兼职类型返回的列表 -->
       <div class="recommend-title" v-if="this.list.length>0">{{typeTitle}}</div>
       <ul>
-        <transition-group class="fadeIn">
+        <!-- <transition-group class="fadeIn"> -->
           <router-link
             tag="li"
             class="item border-bottom"
@@ -35,7 +35,7 @@
               </div>
             </div>
           </router-link>
-        </transition-group>
+        <!-- </transition-group> -->
       </ul>
   </div>
 </template>
@@ -126,6 +126,8 @@ export default {
 <style lang="stylus" scoped>
   @import '~@/assets/styles/varibles.styl'
   @import '~@/assets/styles/mixins.styl'
+  ul
+    background-color #fff
   .icons >>> .swiper-container
     width: 100%
     height: 0
@@ -141,10 +143,11 @@ export default {
       padding-bottom: 25%
       .icon-img
         position: absolute
-        top: 0.4rem
+        width 100%
+        top: 0.44rem
         left: 0
         right: 0
-        bottom: .44rem
+        bottom: .4rem
         box-sizing: border-box
         padding: .1rem
         .icon-img-content
@@ -155,20 +158,19 @@ export default {
         position: absolute
         right: 0
         left: 0
-        bottom: 0
+        bottom: .08rem
         height: .44rem
         line-height: .44rem
         color: $darkTextColor
         text-align: center
         ellipsis()
-  .fadeIn-enter-active, .fadeIn-leave-active {
-    transition: opacity .5s;
-  }
-  .fadeIN-enter, .fadeIn-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
+  // .fadeIn-enter-active, .fadeIn-leave-active {
+  //   transition: opacity .5s;
+  // }
+  // .fadeIN-enter, .fadeIn-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  //   opacity: 0;
+  // }
   .recommend-title
-    padding-top: .2rem
     background: #eeeeee
     line-height: .8rem
     text-indent: .2rem

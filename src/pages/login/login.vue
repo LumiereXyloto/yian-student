@@ -6,11 +6,17 @@
       </router-link>
     </div>
     <div class="logo-wrapper">
-      <img class="logo" src="@/assets/images/logo.png" alt="gg">
+      <img class="logo" src="@/assets/images/yian.png" alt="gg">
     </div>
     <div class="input-wrapper">
-      <input class="input" type="text" placeholder="用户邮箱" v-model="list.uid">
-      <input class="input" type="password" placeholder="请填写密码" v-model="list.psw">
+      <div class="icon-input-wrapper">
+        <input class="input" type="text" placeholder="用户邮箱" v-model="list.uid">
+        <img src="@/assets/images/uid.png" alt="gg">
+      </div>
+      <div class="icon-input-wrapper">
+        <input class="input" type="password" placeholder="请填写密码" v-model="list.psw">
+        <img src="@/assets/images/pwd.png" alt="gg">
+      </div>
       <div class="isRememberPsw">
         <span class="checkbox-title">记住密码</span>
         <input v-model="isRememberPsw" @click="checkCheckboxValue" id="color-input-blue" class="chat-button-location-radio-input" type="checkbox" name="color-input-blue"/>
@@ -124,6 +130,11 @@ export default {
   input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     color: $color-input-grey
   }
+  .wrapper
+    position fixed
+    width 100%
+    height 100%
+    background-color #fff
   .header-info
     display: flex
     justify-content: flex-end
@@ -132,16 +143,25 @@ export default {
   .logo-wrapper
     display: flex
     justify-content: center
-    margin-top: 1rem
+    margin-top: .8rem
     .logo
-      width: 1.5rem
-      height: 1.5rem
+      width: 4.4rem
+      height: 1.3rem
   .input-wrapper
     display: flex
     flex-direction: column
+    .icon-input-wrapper
+      position relative
+      text-align center
+      img
+        position absolute
+        width .4rem
+        left .6rem
+        top .74rem
     .input
+      width 75%
       border-bottom: .02rem solid #CECECE
-      padding: .2rem
+      padding: .2rem .2rem .1rem .8rem
       margin: .4rem
       margin-top: .6rem
       font-size $font-size-medium

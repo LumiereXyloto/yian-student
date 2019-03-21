@@ -61,6 +61,8 @@ export default {
 <style lang="stylus" scoped>
   @import '~@/assets/styles/mixins.styl'
   @import '~@/assets/styles/varibles.styl'
+  ul
+    background-color #fff
   .recommend-title
     background: #eeeeee
     line-height: .8rem

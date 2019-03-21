@@ -25,7 +25,7 @@ export default {}
     position fixed
     bottom 0
     width 100%
-    z-index 5
+    z-index 99
     .tab
       display: flex
       height: .88rem

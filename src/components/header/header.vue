@@ -46,7 +46,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~@/assets/styles/varibles.styl'
   .header-fixed
-    position: fixed
+    position fixed
     z-index: 2
     top: 0
     left: 0
