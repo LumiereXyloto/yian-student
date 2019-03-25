@@ -1,21 +1,39 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/home/home'
-import Message from '@/pages/message/message'
-import Personal from '@/pages/personal/personal'
-import Login from 'pages/login/login'
-import Register from 'pages/register/register'
-import Detail from 'pages/detail/detail'
-import MessageDetail from 'pages/message-detail/message-detail'
-import Evaluation from 'pages/evaluation/evaluation'
-import PersonalInfo from 'pages/personal-info/personal-info'
-import MyParttimejob from 'pages/my-parttimejob/my-parttimejob'
-import MyPreference from 'pages/preference/preference'
-import Feedback from 'pages/feedback/feedback'
-import Certification from 'pages/certification/certification'
-import ChangePassword from 'pages/change-password/change-password'
-import ForgetPassword from 'pages/change-password/forget-password'
-import MerchantEvaluation from 'pages/merchant-evaluation/merchant-evaluation'
+
+const Home = () => import('@/pages/home/home')
+const Message = () => import('@/pages/message/message')
+const Personal = () => import('@/pages/personal/personal')
+const Login = () => import('pages/login/login')
+const Register = () => import('pages/register/register')
+const Detail = () => import('pages/detail/detail')
+const MessageDetail = () => import('pages/message-detail/message-detail')
+const Evaluation = () => import('pages/evaluation/evaluation')
+const PersonalInfo = () => import('pages/personal-info/personal-info')
+const MyParttimejob = () => import('pages/my-parttimejob/my-parttimejob')
+const MyPreference = () => import('pages/preference/preference')
+const Feedback = () => import('pages/feedback/feedback')
+const Certification = () => import('pages/certification/certification')
+const ChangePassword = () => import('pages/change-password/change-password')
+const ForgetPassword = () => import('pages/change-password/forget-password')
+const MerchantEvaluation = () => import('pages/merchant-evaluation/merchant-evaluation')
+
+// import Home from '@/pages/home/home'
+// import Message from '@/pages/message/message'
+// import Personal from '@/pages/personal/personal'
+// import Login from 'pages/login/login'
+// import Register from 'pages/register/register'
+// import Detail from 'pages/detail/detail'
+// import MessageDetail from 'pages/message-detail/message-detail'
+// import Evaluation from 'pages/evaluation/evaluation'
+// import PersonalInfo from 'pages/personal-info/personal-info'
+// import MyParttimejob from 'pages/my-parttimejob/my-parttimejob'
+// import MyPreference from 'pages/preference/preference'
+// import Feedback from 'pages/feedback/feedback'
+// import Certification from 'pages/certification/certification'
+// import ChangePassword from 'pages/change-password/change-password'
+// import ForgetPassword from 'pages/change-password/forget-password'
+// import MerchantEvaluation from 'pages/merchant-evaluation/merchant-evaluation'
 
 Vue.use(Router)
 
@@ -23,7 +41,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/login'
     },
     {
       path: '/home',

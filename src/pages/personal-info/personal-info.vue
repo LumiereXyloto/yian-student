@@ -2,7 +2,7 @@
   <div>
     <personal-info-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></personal-info-header>
     <div class="logoContainer">
-      <div class="logo">
+      <div class="logo" :style="bgImg">
       </div>
       <div class="avatar-box">
         <img class="avatar" @click="avatarClick" :src="iconUrl" v-show="iconUrl">
@@ -44,6 +44,7 @@
 import qs from 'qs'
 import PersonalInfoHeader from 'components/header/header'
 import AvatarPanel from 'components/avatar-panel/avatar-panel'
+import logoImg from '../../../static/images/appLogo.png'
 export default {
   name: 'PersonalInfo',
   components: {
@@ -64,7 +65,10 @@ export default {
       studentQQ: '',
       studentSex: '',
       studentWx: '',
-      iconUrl: ''
+      iconUrl: '',
+      bgImg: {
+        backgroundImage: 'url(' + logoImg + ')'
+      }
     }
   },
   methods: {
@@ -134,7 +138,6 @@ export default {
       border-radius .24rem
       .logo
         flex-grow 7
-        background-image url('/static/images/appLogo.png')
         background-repeat no-repeat
         background-size 100% 100%
         -moz-background-size 100% 100%

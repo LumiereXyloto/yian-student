@@ -12,6 +12,9 @@
 </template>
 
 <script>
+import Swiper1 from '../../../static/images/swiper1.png'
+import Swiper2 from '../../../static/images/swiper2.png'
+import Swiper3 from '../../../static/images/swiper3.png'
 export default {
   name: 'HomeSwiper',
   data () {
@@ -25,13 +28,13 @@ export default {
       },
       swiperList: [{
         id: '0001',
-        imgUrl: '/static/images/swiper3.png'
+        imgUrl: Swiper1
       }, {
         id: '0002',
-        imgUrl: '/static/images/swiper2.png'
+        imgUrl: Swiper2
       }, {
         id: '0003',
-        imgUrl: '/static/images/swiper1.png'
+        imgUrl: Swiper3
       }]
     }
   },

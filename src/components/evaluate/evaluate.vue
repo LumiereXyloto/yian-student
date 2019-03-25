@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import yellowStar from '../../../static/images/yellowStar.png'
+import blankStar from '../../../static/images/blankStar.png'
 import qs from 'qs'
 export default {
   name: 'Evaluate',
@@ -40,8 +42,8 @@ export default {
       evaluationContent: '',
       selectItem: [],
       list: [0, 1, 2],
-      stara: 'static/images/yellowStar.png', // 亮星星
-      starb: 'static/images/blankStar.png', // 暗星星
+      stara: yellowStar, // 亮星星
+      starb: blankStar, // 暗星星
       starNum: 0,
       starText: ''
     }

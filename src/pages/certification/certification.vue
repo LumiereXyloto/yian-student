@@ -182,6 +182,7 @@ export default {
         text-align center
         .imgUrl
           height 100%
+          width auto
       .toggle
         text-decoration underline
       .course_iamge

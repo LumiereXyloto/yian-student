@@ -2,7 +2,7 @@
   <div class="bgWrapper">
     <personal-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></personal-header>
     <div class="logoContainer">
-      <div class="logo">
+      <div class="logo" :style="bgImg">
       </div>
       <div class="avatar-box">
         <img class="avatar" :src="iconUrl" v-show="iconUrl"/>
@@ -73,6 +73,7 @@
 
 <script>
 import PersonalHeader from 'components/header/header'
+import logoImg from '../../../static/images/appLogo.png'
 export default {
   name: 'Personal',
   components: {
@@ -83,7 +84,10 @@ export default {
       title: '个人中心',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
-      iconUrl: ''
+      iconUrl: '',
+      bgImg: {
+        backgroundImage: 'url(' + logoImg + ')'
+      }
     }
   },
   methods: {
@@ -147,7 +151,6 @@ export default {
       border-radius .24rem
       .logo
         flex-grow 7
-        background-image url('/static/images/appLogo.png')
         background-repeat no-repeat
         background-size 100% 100%
         -moz-background-size 100% 100%
