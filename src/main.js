@@ -17,6 +17,8 @@ Vue.config.productionTip = false
 Vue.use(layer)
 fasClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)
+
+axios.defaults.withCredentials = true
 Vue.prototype.axios = axios
 
 /* eslint-disable no-new */

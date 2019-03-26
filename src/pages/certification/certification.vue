@@ -175,9 +175,9 @@ export default {
         position absolute
         left 50%
         height 4rem
-        width 5rem
+        width 100%
         margin-top .4rem
-        margin-left -2.5rem
+        margin-left -50%
         background-color #ffffff
         text-align center
         .imgUrl

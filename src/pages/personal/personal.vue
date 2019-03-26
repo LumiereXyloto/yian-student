@@ -1,6 +1,6 @@
 <template>
   <div class="bgWrapper">
-    <personal-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></personal-header>
+    <personal-header :title="title" :bgColor="bgColor" :fontColor="fontColor" :backFlag="false"></personal-header>
     <div class="logoContainer">
       <div class="logo" :style="bgImg">
       </div>

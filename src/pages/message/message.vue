@@ -1,6 +1,6 @@
 <template>
   <div>
-    <message-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></message-header>
+    <message-header :title="title" :bgColor="bgColor" :fontColor="fontColor" :backFlag="false"></message-header>
     <img src="@/assets/images/message.png" class="banner">
     <message-list></message-list>
     <div style="height:0.86rem"></div>

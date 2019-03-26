@@ -35,8 +35,10 @@
       </div>
     </div>
     <div class="button" @click="saveChange">保 存</div>
-
-    <avatar-panel v-if="avatarFlag" @closePanel="changeAvatarFlag" @chooseIcon="chooseIcon"></avatar-panel>
+    <transition name="bounce">
+      <avatar-panel v-if="avatarFlag" @closePanel="changeAvatarFlag" @chooseIcon="chooseIcon"></avatar-panel>
+    </transition>
+    <div id="grey-background" v-show="greyFlag"></div>
   </div>
 </template>
 
@@ -68,7 +70,8 @@ export default {
       iconUrl: '',
       bgImg: {
         backgroundImage: 'url(' + logoImg + ')'
-      }
+      },
+      greyFlag: false
     }
   },
   methods: {
@@ -109,15 +112,18 @@ export default {
     },
     avatarClick () {
       this.avatarFlag = true
+      this.greyFlag = true
     },
     changeAvatarFlag (b) {
       if (b === true) {
         this.avatarFlag = false
+        this.greyFlag = false
       }
     },
     chooseIcon (b, url) {
       if (b === true) {
         this.avatarFlag = false
+        this.greyFlag = false
         this.iconUrl = url
       }
     }
@@ -179,4 +185,21 @@ export default {
     padding .2rem 0
     border-radius .2rem
     text-align center
+  .bounce-enter-active
+    animation bounce-in .5s
+  .bounce-leave-active
+    animation bounce-in .4s reverse
+  @keyframes bounce-in
+    0%
+      transform scale(0)
+    50%
+      transform scale(1.2)
+    100%
+      transform scale(1)
+  #grey-background
+    position fixed
+    top 0
+    width 100%
+    height 100%
+    background-color rgba(0,0,0,0.5)
 </style>

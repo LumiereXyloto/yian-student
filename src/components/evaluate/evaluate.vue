@@ -1,17 +1,17 @@
 <template>
-  <div class="wrapper" ref="wrapper">
+  <div id="wrapper">
     <div class="content-wrapper">
       <div class="content-header border-bottom">
         评 价
         <div class="x" @click="close">x</div>
       </div>
-      <div class="star-wrapper">
-        <div class="starXin" v-for="(item,index) in list" :key='index'>
-          <div @click="star(index)">
-            <img :src="starNum>index?stara:starb"/>
+        <div class="star-wrapper">
+          <div class="starXin" v-for="(item,index) in list" :key='index'>
+            <div @click="star(index)">
+              <img :src="starNum>index?stara:starb"/>
+            </div>
           </div>
         </div>
-      </div>
       <p class="starText">{{starText}}</p>
       <div class="evaluation-select">
         <div class="select-item" @click="handleItemClick" ref="item1">{{contentList[0].text}}</div>
@@ -54,10 +54,10 @@ export default {
   },
   methods: {
     handleItemClick (e) {
-      if (e.target.attributes.class.nodeValue === 'select-item') {
-        e.target.attributes.class.nodeValue = 'selected-item'
+      if (e.target.className === 'select-item') {
+        e.target.className = 'selected-item'
       } else {
-        e.target.attributes.class.nodeValue = 'select-item'
+        e.target.className = 'select-item'
       }
     },
     checkContent () {
@@ -129,20 +129,26 @@ export default {
     },
     close () {
       this.$emit('changeEvaluateShow')
-      this.$refs.wrapper.style.display = 'none'
     },
     bindClose () {
-      let _this = this
-      document.addEventListener('click', function (e) {
-        // console.log(e)
-        if (e.target.className === 'wrapper') {
-          _this.$emit('changeEvaluateShow')
-          _this.$refs.wrapper.style.display = 'none'
-        }
-      })
+      document.addEventListener('click', this.closeHandler)
+    },
+    closeHandler (e) {
+      if (e.target.id === 'wrapper') {
+        this.$emit('changeEvaluateShow')
+        this.clearContent()
+      }
     },
     star (val) {
       this.starNum = val + 1
+    },
+    clearContent () {
+      this.$refs.item1.attributes.class.nodeValue = 'select-item'
+      this.$refs.item1.attributes.class.nodeValue = 'select-item'
+      this.$refs.item1.attributes.class.nodeValue = 'select-item'
+      this.$refs.item1.attributes.class.nodeValue = 'select-item'
+      this.starNum = 0
+      this.evaluationContent = ''
     }
   },
   mounted () {
@@ -153,25 +159,28 @@ export default {
       if (this.starNum === 0) {
         this.starText = ''
       } else if (this.starNum === 1) {
-        this.starText = '商家一般般吧'
+        this.starText = '对商家不是很满意'
       } else if (this.starNum === 2) {
         this.starText = '还不错噢'
       } else if (this.starNum === 3) {
         this.starText = '非常满意，无可挑剔'
       }
     }
+  },
+  beforeDestroy () {
+    document.removeEventListener('click', this.closeHandler)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .wrapper
+  #wrapper
     position fixed
-    top 0
+    top -0.3rem
     width 100%
     height 100%
     z-index 10
-    background-color rgba(0,0,0,0.5)
+    // background-color rgba(0,0,0,0.5)
     .star-wrapper
       display flex
       justify-content center
