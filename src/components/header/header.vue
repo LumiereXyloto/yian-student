@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="header-fixed" ref="header">
-      <div class="iconfont header-fixed-back" @click="back()" v-if="backFlag">&#xe624;</div>
+      <div class="iconfont header-fixed-back" @click="back()" v-if="backFlag">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#iconfanhui"></use>
+        </svg>
+      </div>
       {{title}}
     </div>
   </div>
@@ -45,6 +49,13 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/assets/styles/varibles.styl'
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
   .header-fixed
     position fixed
     z-index: 2

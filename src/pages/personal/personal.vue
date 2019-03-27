@@ -14,6 +14,9 @@
           <div>
             个人信息
             <img class="mini-image" src="@/assets/images/1.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -22,6 +25,9 @@
           <div>
             密码服务
             <img class="clock-image" src="@/assets/images/clock.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -30,6 +36,9 @@
           <div>
             账号认证
             <img class="mini-image2" src="@/assets/images/2.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -38,6 +47,9 @@
           <div>
             我的兼职
             <img class="mini-image2" src="@/assets/images/3.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -46,6 +58,9 @@
           <div>
             我的关注
             <img class="mini-image2" src="@/assets/images/4.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -54,6 +69,9 @@
           <div>
             我的评价
             <img class="mini-image2" src="@/assets/images/5.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -62,6 +80,9 @@
           <div>
             评价与反馈
             <img class="mini-image2" src="@/assets/images/6.png">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconqianjin"></use>
+            </svg>
           </div>
         </router-link>
       </div>
@@ -135,6 +156,15 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/assets/styles/varibles.styl'
+    .icon
+      position absolute
+      right .42rem
+      width 1em
+      height 1em
+      vertical-align -0.15em
+      fill currentColor
+      overflow hidden
+      color #acacac
     a
       color black
   // .bgWrapper
@@ -156,18 +186,18 @@ export default {
         -moz-background-size 100% 100%
         height 1rem
       .avatar-box
-        flex-grow 3
+        flex-grow 1
         height 1rem
         // background grey
-        position relative
         .avatar
           display block
-          position absolute
-          left .4rem
+          position relative
           top -0.3rem
+          right -0.1rem
+          margin 0 auto
           width 1.6rem
           height 1.6rem
-          border-radius .9rem
+          border-radius .8rem
           background-color #FFE1F1
     .wrapper
       display flex
@@ -198,6 +228,8 @@ export default {
           bottom .22rem
           width .44rem
           height .44rem
+      .item:active
+        background-color #ECECEC
       .item-margin-bottom
         margin-bottom .3rem
       .logout

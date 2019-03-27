@@ -45,6 +45,9 @@
         <div class="row-wrapper">
           <span class="grey">他的评价：</span>
           <span class="black" @click="toMerchantDetail">点击查看</span>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconqianjin"></use>
+          </svg>
         </div>
       </div>
 
@@ -231,6 +234,7 @@ export default {
     padding-bottom .1rem
     background-color #fff
   .row-wrapper
+    position relative
     padding .2rem .4rem
     background-color #fff
     .grey
@@ -238,6 +242,18 @@ export default {
       color #979797
     .black
       font-size .32rem
+    .icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+      color: #acacac;
+      position: absolute;
+      right: 0.4rem;
+    }
+  .row-wrapper:active
+    background-color #ECECEC
   .contact-container
     background-color #fff
     padding .2rem 0

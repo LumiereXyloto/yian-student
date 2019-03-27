@@ -23,7 +23,11 @@
       </div>
     </div>
     <div class="upload-wrapper">
-      <p class="up-image" @click="uploadPic">+</p>
+      <p class="up-image" @click="uploadPic">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#iconadd-column"></use>
+        </svg>
+      </p>
       <input type="file" ref="file" name="file" @change="uploadToServer" accept="image/png,image/jpeg,image/jpg" class="uploadInput">
       <p>添加认证图片</p>
     </div>
@@ -148,6 +152,13 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/assets/styles/varibles.styl'
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
   .wrapper
     margin 1.26rem .12rem 0
     .info-bar
@@ -196,14 +207,15 @@ export default {
         font-size .32rem
     .upload-wrapper
       margin-top .4rem
-      height 2rem
+      height 1.8rem
       background-color #ffffff
       text-align center
       color #BDBDBD
       border-radius .2rem
+      padding-top .2rem
       .up-image
-        font-size 1.4rem
-        width 1.4rem
+        font-size 1.2rem
+        width 1.2rem
         margin 0 auto
       .uploadInput
         display none

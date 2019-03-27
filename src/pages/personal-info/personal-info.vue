@@ -149,18 +149,19 @@ export default {
         -moz-background-size 100% 100%
         height 1rem
       .avatar-box
-        flex-grow 3
+        flex-grow 1
         height 1rem
         // background grey
         position relative
         .avatar
           display block
-          position absolute
-          left .4rem
+          position relative
           top -0.3rem
+          right -0.1rem
+          margin 0 auto
           width 1.6rem
           height 1.6rem
-          border-radius .9rem
+          border-radius .8rem
           background-color #FFE1F1
   .info-wrapper
     margin 0 .12rem
