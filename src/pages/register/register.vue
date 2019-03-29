@@ -245,7 +245,7 @@ export default {
     background-color #fff
   .header-info
     padding .2rem 0
-    margin .4rem 0
+    margin .3rem 0
     background-color #ffffff
     text-align center
     color #ffffff
@@ -264,7 +264,7 @@ export default {
       width 75%
       border-bottom: .02rem solid #CECECE
       padding: .2rem .2rem .06rem .9rem
-      margin: .2rem .4rem .3rem
+      margin: .24rem .4rem
     .code
       color $color-theme
       text-decoration underline
@@ -272,7 +272,7 @@ export default {
       padding-right .2rem
   .login-button
     margin: .4rem
-    margin-top: .6rem
+    margin-top: .5rem
     color: #ffffff
     background-color $color-theme
     height .8rem

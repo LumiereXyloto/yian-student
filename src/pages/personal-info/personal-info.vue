@@ -143,13 +143,13 @@ export default {
       padding .8rem .4rem
       border-radius .24rem
       .logo
-        flex-grow 7
+        width 65%
         background-repeat no-repeat
         background-size 100% 100%
         -moz-background-size 100% 100%
         height 1rem
       .avatar-box
-        flex-grow 1
+        width 35%
         height 1rem
         // background grey
         position relative

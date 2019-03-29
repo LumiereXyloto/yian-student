@@ -51,7 +51,7 @@ export default {
         uid: '',
         psw: ''
       },
-      isRememberPsw: false
+      isRememberPsw: true
     }
   },
   methods: {
@@ -88,6 +88,13 @@ export default {
         this.$router.push('/home')
         this.$layer.closeAll()
         this.$layer.msg(res.data.msg)
+        if (this.isRememberPsw === true) {
+          console.log('checked === true')
+          this.setCookie(this.list.uid, this.list.psw, 30)
+        } else {
+          console.log('清空Cookie')
+          this.clearCookie()
+        }
       } else {
         this.$layer.closeAll()
         this.$layer.msg('登录失败')
@@ -100,18 +107,37 @@ export default {
     //   window.localStorage.setItem('psw', this.list.psw)
     // },
     checkCheckboxValue () {
-      console.log(this.isRememberPsw)
+      setTimeout(() => {
+        console.log(this.isRememberPsw)
+      }, 17)
+    },
+    setCookie (uid, psw, exdays) {
+      let exdate = new Date()
+      exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays)// 保存的天数
+      window.document.cookie = `uid = ${uid}; path = /; expires = ${exdate.toGMTString()}`
+      window.document.cookie = `psw = ${psw}; path = /; expires = ${exdate.toGMTString()}`
+    },
+    getCookie () {
+      if (document.cookie.length > 0) {
+        // console.log(document.cookie) eg:uid=740207968@qq.com; psw=123456
+        var arr = document.cookie.split('; ')
+        for (var i = 0; i < arr.length; i++) {
+          var arr2 = arr[i].split('=')// 再次切割
+          // 判断查找相对应的值
+          if (arr2[0] === 'uid') {
+            this.list.uid = arr2[1]// 保存到保存数据的地方
+          } else if (arr2[0] === 'psw') {
+            this.list.psw = arr2[1]
+          }
+        }
+      }
+    },
+    clearCookie () {
+      this.setCookie('', '', -1)// 修改2值都为空，天数为负1天就好了
     }
   },
   mounted () {
-    // this.isRememberPsw = window.localStorage.getItem('isSave')
-    // if (this.isRememberPsw) {
-    //   this.list.uid = window.localStorage.getItem('uid')
-    //   this.list.psw = window.localStorage.getItem('psw')
-    // } else {
-    //   this.list.uid = ''
-    //   this.list.psw = ''
-    // }
+    this.getCookie()
   }
 }
 </script>
