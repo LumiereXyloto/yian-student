@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      title: '评价与反馈',
+      title: '用户反馈',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
       content: ''

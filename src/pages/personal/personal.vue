@@ -78,7 +78,7 @@
       <div class="item">
         <router-link to="/feedback">
           <div>
-            评价与反馈
+            用户反馈
             <img class="mini-image2" src="@/assets/images/6.png">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#iconqianjin"></use>

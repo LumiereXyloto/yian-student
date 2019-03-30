@@ -19,7 +19,7 @@
       </div>
       <div class="isRememberPsw">
         <span class="checkbox-title">记住密码</span>
-        <input v-model="isRememberPsw" @click="checkCheckboxValue" id="color-input-blue" class="chat-button-location-radio-input" type="checkbox" name="color-input-blue"/>
+        <input v-model="isRememberPsw" id="color-input-blue" class="chat-button-location-radio-input" type="checkbox" name="color-input-blue"/>
         <label for="color-input-blue"></label>
       </div>
     </div>
@@ -61,10 +61,7 @@ export default {
         this.$layer.closeAll()
         this.$layer.msg('账号/密码不能为空')
       } else if (email.test(this.list.uid)) {
-        console.log(this.isRememberPsw)// 记住密码
-        // if (this.isRememberPsw) {
-        //   this.savePsw()
-        // }
+        // console.log(this.isRememberPsw)// 记住密码
         axios.post('http://equator8848.xyz:8080/yian2/student/login.do', qs.stringify({
           userId: this.list.uid,
           pwd: this.list.psw
@@ -89,10 +86,10 @@ export default {
         this.$layer.closeAll()
         this.$layer.msg(res.data.msg)
         if (this.isRememberPsw === true) {
-          console.log('checked === true')
+          // console.log('checked === true')
           this.setCookie(this.list.uid, this.list.psw, 30)
         } else {
-          console.log('清空Cookie')
+          // console.log('清空Cookie')
           this.clearCookie()
         }
       } else {
@@ -100,17 +97,11 @@ export default {
         this.$layer.msg('登录失败')
       }
     },
-    // savePsw () {
-    //   console.log(1)
-    //   window.localStorage.setItem('isSave', this.isRememberPsw)
-    //   window.localStorage.setItem('uid', this.list.uid)
-    //   window.localStorage.setItem('psw', this.list.psw)
+    // checkCheckboxValue () {
+    //   setTimeout(() => {
+    //     console.log(this.isRememberPsw)
+    //   }, 17)
     // },
-    checkCheckboxValue () {
-      setTimeout(() => {
-        console.log(this.isRememberPsw)
-      }, 17)
-    },
     setCookie (uid, psw, exdays) {
       let exdate = new Date()
       exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays)// 保存的天数

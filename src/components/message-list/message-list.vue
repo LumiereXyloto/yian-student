@@ -91,12 +91,14 @@ export default {
         })
     },
     touchStart (item) {
+      event.preventDefault()
       let touchs = event.changedTouches[0]
       // 记录开始滑动的鼠标位置
       this.clientNum.x1 = touchs.pageX
       this.candelete = {}
     },
     touchEnd (item) {
+      event.preventDefault()
       let touchs = event.changedTouches[0]
       // 记录结束滑动的鼠标位置
       this.clientNum.x2 = touchs.pageX

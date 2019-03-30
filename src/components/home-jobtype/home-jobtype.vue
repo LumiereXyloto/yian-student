@@ -12,7 +12,7 @@
     </swiper>
 
     <!-- 根据兼职类型返回的列表 -->
-      <div class="recommend-title" v-if="this.list.length>0">{{typeTitle}}</div>
+      <div class="recommend-title" v-if="this.list.length>0">{{typeTitle}}（{{list.length}}）</div>
       <ul>
         <!-- <transition-group class="fadeIn"> -->
           <router-link

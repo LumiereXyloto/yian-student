@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="recommend-title" v-if="this.list.length>0">兼职推荐</div>
+    <div class="recommend-title" v-if="this.list.length>0">兼职推荐（{{list.length}}）</div>
     <ul>
       <li
         class="item border-bottom"
