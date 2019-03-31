@@ -106,8 +106,14 @@ export default {
     },
     sendRequestSucc (res) {
       if (res.data.status === 1) {
-        this.list = res.data.data.list
-        console.log(this.list)
+        if (res.data.data.list.length === 0) {
+          this.list = res.data.data.list
+          this.$layer.closeAll()
+          this.$layer.msg('该分类下暂无兼职')
+        } else {
+          this.list = res.data.data.list
+          // console.log(this.list)
+        }
       }
     },
     selectItem (item) {
