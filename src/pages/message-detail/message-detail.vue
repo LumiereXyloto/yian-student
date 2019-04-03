@@ -35,7 +35,7 @@ export default {
         messageId: this.$route.params.messageId
       }))
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           this.getDetailsucc(res)
         })
     },

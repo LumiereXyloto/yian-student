@@ -75,7 +75,7 @@ export default {
       }
     },
     sendInfoSucc (res) {
-      console.log(res)
+      // console.log(res)
       // sessionStorage.setItem('uid', this.uid)
       if (res.data.status === 4005) {
         this.$layer.closeAll()

@@ -272,7 +272,7 @@ export default {
       padding-right .2rem
   .login-button
     margin: .4rem
-    margin-top: .5rem
+    margin-top: .7rem
     color: #ffffff
     background-color $color-theme
     height .8rem

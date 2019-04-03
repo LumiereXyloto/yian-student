@@ -18,6 +18,7 @@
           <div class="del" @click.stop="deleteItem(index, item)">删除</div>
         </li>
       </ul>
+      <div class="tip" v-show="!list.length">暂无消息</div>
     <!-- </scroll> -->
     <!-- <div class="totalNum">6</div> -->
     <div class="deleteAll" @click="deleteAll">删除所有</div>
@@ -229,4 +230,11 @@ export default {
     font-size .2rem
     color #ffffff
     z-index 999
+  .tip
+    text-align center
+    margin 0 .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
 </style>

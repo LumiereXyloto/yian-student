@@ -2,6 +2,7 @@
   <div class="wrapper">
     <my-parttimejob-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></my-parttimejob-header>
     <folding-board :title="tabTitle1" :content="content1" :msg="msg1"></folding-board>
+    <folding-board :title="tabTitle4" :content="content4" :msg="msg4"></folding-board>
     <folding-board :title="tabTitle2" :content="content2" :evaluateFlag="true" @toEvaluate="toEvaluate" :msg="msg2"></folding-board>
     <folding-board :title="tabTitle3" :content="content3" :msg="msg3"></folding-board>
     <transition name="slide">
@@ -31,12 +32,15 @@ export default {
       tabTitle1: '已报名',
       tabTitle2: '待评价',
       tabTitle3: '已完成',
+      tabTitle4: '进行中',
       content1: [],
       content2: [],
       content3: [],
+      content4: [],
       msg1: '',
       msg2: '',
       msg3: '',
+      msg4: '',
       evaluateShow: false,
       jobId: '',
       toUserId: '',
@@ -80,6 +84,18 @@ export default {
           }
         })
     },
+    getDoingJob () {
+      this.axios.post('http://equator8848.xyz:8080/yian2/studentSignedJobInfo/getSignedJob.do', qs.stringify({
+        status: 3
+      }))
+        .then((res) => {
+          if (res.data.status === 1) {
+            this.content4 = res.data.data
+          } else if (res.data.status === 0) {
+            this.msg4 = res.data.msg
+          }
+        })
+    },
     toEvaluate (jobId, merchantId) {
       this.greyFlag = true
       this.evaluateShow = true
@@ -93,6 +109,7 @@ export default {
   },
   mounted () {
     this.getSignedJob()
+    this.getDoingJob()
     this.toBeEvaluated()
     this.getFinishedJob()
   }

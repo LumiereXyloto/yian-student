@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div :class="isclicked? 'boardAfterClick':'boardBeforeClick'" @click="clicked">
       <span class="titleText">
-        {{this.title}}
+        {{this.title}}({{content.length}})
       </span>
       <p :class="isclicked?'iconAfterClick':'iconBeforeClick'" >
         <svg class="icon" aria-hidden="true">

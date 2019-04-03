@@ -92,15 +92,12 @@ export default {
         withCredentials: true
       })
         .then(this.sendRequestSucc)
-        // .then(() => {
-        //   bus.$emit('emitParams', this.list.merchantId, this.list.jobId, this.list.isSignOrNot)
-        // })
     },
     sendRequestSucc (res) {
       this.list = res.data.data
       this.getButtonText()
       this.list.normalizedJobType = this.normalizeJobType(res.data.data.jobType)
-      // console.log(this.list)
+      console.log(this.list)
     },
     toMerchantDetail () {
       this.$router.push(`/merchant-evaluation/${this.list.merchantId}`)

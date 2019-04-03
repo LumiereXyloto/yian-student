@@ -2,7 +2,7 @@
   <div>
     <evaluation-header :title="title" :bgColor="bgColor" :fontColor="fontColor"></evaluation-header>
     <div class="user-info border-bottom">
-      <img :src="icon" class="avatar">
+      <img :src="icon" class="avatar" v-show="icon">
       {{name}}
     </div>
     <div class="evaluation-num">
@@ -24,7 +24,7 @@
       <div class="tab-item" :class="[!isSelected ? activeItem: blankItem]" @click="tabRightClick">我发出的</div>
     </div>
     <div class="evaluation-wrapper">
-      <evaluation-panel :evaluationList="activeList"></evaluation-panel>
+      <evaluation-panel :evaluationList="activeList" :tipText="tipText"></evaluation-panel>
     </div>
   </div>
 </template>
@@ -54,17 +54,20 @@ export default {
       middleNum: '',
       badNum: '',
       name: '',
-      icon: ''
+      icon: '',
+      tipText: '暂无收到的评价'
     }
   },
   methods: {
     tabLeftClick () {
       this.isSelected = true
       this.activeList = this.inList
+      this.tipText = '暂无收到的评价'
     },
     tabRightClick () {
       this.isSelected = false
       this.activeList = this.outList
+      this.tipText = '暂无发出的评价'
     },
     getOwnInEvaluation () {
       let _this = this

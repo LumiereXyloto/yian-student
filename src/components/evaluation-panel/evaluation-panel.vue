@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div class="wrapper" v-for="item of evaluationList" :key="item.id">
-      <div class="level">{{item.evaluationLevel}}</div>
-      <div class="content">{{item.content}}</div>
-      <div class="time">{{item.evaluationTime}}</div>
-    </div>
+    <transition-group name="list">
+      <div class="wrapper" v-for="item of evaluationList" :key="item.id">
+        <div class="level">{{item.evaluationLevel}}</div>
+        <div class="content">{{item.content}}</div>
+        <div class="time">{{item.evaluationTime}}</div>
+      </div>
+    </transition-group>
+    <div class="tip" v-show="tipText">{{tipText}}</div>
   </div>
 </template>
 
@@ -12,7 +15,8 @@
 export default {
   name: 'EvaluationPanel',
   props: {
-    evaluationList: Array
+    evaluationList: Array,
+    tipText: String
   }
 }
 </script>
@@ -37,4 +41,18 @@ export default {
       color #5F5F5F
       padding .3rem .6rem .2rem
       text-align right
+  .tip
+    text-align center
+    margin .12rem .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
+  .list-enter-active {
+    transition: all 1s;
+  }
+  .list-enter {
+    opacity: 0;
+    transition: all 1s;
+  }
 </style>

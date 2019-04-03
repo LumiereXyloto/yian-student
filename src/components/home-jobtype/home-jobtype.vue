@@ -12,31 +12,30 @@
     </swiper>
 
     <!-- 根据兼职类型返回的列表 -->
-      <div class="recommend-title" v-if="this.list.length>0">{{typeTitle}}（{{list.length}}）</div>
-      <ul>
-        <!-- <transition-group class="fadeIn"> -->
-          <router-link
-            tag="li"
-            class="item border-bottom"
-            v-for="item of list"
-            :key="item.jobId"
-            :to="'/detail/' + item.jobId"
-          >
-            <div class="item-img-wrapper">
-              <img src="@/assets/images/logo.png" class="item-img">
+      <div class="recommend-title" v-show="typeTitle">{{typeTitle}}（{{list.length}}）</div>
+      <transition-group name="list" tag="ul">
+        <router-link
+          tag="li"
+          class="item border-bottom"
+          v-for="item of list"
+          :key="item.jobId"
+          :to="'/detail/' + item.jobId"
+        >
+          <div class="item-img-wrapper">
+            <img src="@/assets/images/logo.png" class="item-img">
+          </div>
+          <div class="item-info">
+            <p class="item-brief">{{item.jobSummary}}</p>
+            <p class="item-time">{{item.address}}</p>
+            <p class="item-time">{{item.jobTime}}</p>
+            <div class="reward-and-num">
+              <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
+              <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
             </div>
-            <div class="item-info">
-              <p class="item-brief">{{item.jobSummary}}</p>
-              <p class="item-time">{{item.address}}</p>
-              <p class="item-time">{{item.jobTime}}</p>
-              <div class="reward-and-num">
-                <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
-                <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
-              </div>
-            </div>
-          </router-link>
-        <!-- </transition-group> -->
-      </ul>
+          </div>
+        </router-link>
+        <div class="tip" key="tip" v-show="typeTitle && (!list.length)">该分类下暂无兼职</div>
+      </transition-group>
   </div>
 </template>
 
@@ -106,13 +105,9 @@ export default {
     },
     sendRequestSucc (res) {
       if (res.data.status === 1) {
-        if (res.data.data.list.length === 0) {
-          this.list = res.data.data.list
-          this.$layer.closeAll()
-          this.$layer.msg('该分类下暂无兼职')
-        } else {
-          this.list = res.data.data.list
-          // console.log(this.list)
+        this.list = res.data.data.list
+        if (this.list.length === 0) {
+          this.tipText = '该分类下暂无兼职'
         }
       }
     },
@@ -215,4 +210,18 @@ export default {
           color #ADADAD
           font-size .3rem
           padding .1rem 0
+  .list-enter-active {
+    transition: all 1s;
+  }
+  .list-enter {
+    opacity: 0;
+    transition: all 1s;
+  }
+  .tip
+    text-align center
+    margin 0 .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
 </style>

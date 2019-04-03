@@ -37,6 +37,31 @@
         </div>
       </router-link>
     </ul>
+    <div class="nodata" v-show="noDataText1">{{noDataText1}}</div>
+    <div class="block-title">{{listTitle2}}</div>
+    <ul>
+      <router-link
+        tag="li"
+        class="item border-bottom"
+        v-for="item of alikeList"
+        :key="item.jobId"
+        :to="'/detail/' + item.jobId"
+      >
+        <div class="item-img-wrapper">
+          <img src="@/assets/images/logo.png" class="item-img">
+        </div>
+        <div class="item-info">
+          <p class="item-brief">{{item.brief}}</p>
+          <p class="item-time">{{item.location}}</p>
+          <p class="item-time">{{item.time}}</p>
+          <div class="reward-and-num">
+            <p class="item-reward">{{item.reward}}/{{item.rewardType}}</p>
+            <p class="item-num">供需:{{item.nowNum}}/{{item.hireNum}}</p>
+          </div>
+        </div>
+      </router-link>
+    </ul>
+    <div class="nodata" v-show="noDataText2">{{noDataText2}}</div>
   </div>
 </template>
 
@@ -55,12 +80,15 @@ export default {
   },
   data () {
     return {
+      noDataText1: '',
+      noDataText2: '',
       title: '我的偏好',
       bgColor: '#409Eff',
       fontColor: '#ffffff',
       value: false, // switch默认状态
       triggerText: '',
-      listTitle: '',
+      listTitle: '我的偏好',
+      listTitle2: '相似推荐',
       chooseList: [{
         id: '1',
         value: '家教',
@@ -668,7 +696,8 @@ export default {
       jobType: '',
       rewardType: '',
       reward: '',
-      preferList: []
+      preferList: [],
+      alikeList: []
     }
   },
   methods: {
@@ -729,17 +758,14 @@ export default {
         .then(res => {
           // console.log(res)
           if (res.data.status === 1) {
+            _this.preferList = res.data.data.isMark
+            _this.alikeList = res.data.data.isNotMark
             if (res.data.data.isMark.length === 0) {
-              _this.$layer.closeAll()
-              _this.$layer.msg('抱歉，暂无满足该条件的兼职')
-              _this.listTitle = '相似推荐'
-              _this.preferList = res.data.data.isNotMark
-            } else {
-              _this.listTitle = '我的偏好'
-              _this.preferList = res.data.data.isMark
+              _this.noDataText1 = '抱歉，暂无符合条件的兼职'
+            } else if (res.data.data.isNotMark.length === 0) {
+              _this.noDataText2 = '抱歉，暂无相似的兼职'
             }
           }
-          // console.log(_this.preferList)
         })
     },
     changeSwitch (checked) {
@@ -845,7 +871,7 @@ export default {
     font-size .28rem
     height .7rem
     line-height .7rem
-    margin-bottom .2rem
+    margin .2rem 0
     padding 0 .2rem
   .item
     display flex
@@ -882,4 +908,11 @@ export default {
           color #ADADAD
           font-size .3rem
           padding .1rem 0
+  .nodata
+    text-align center
+    margin 0 .12rem 0
+    background-color #ffffff
+    height .8rem
+    line-height .8rem
+    border-radius .1rem
 </style>
