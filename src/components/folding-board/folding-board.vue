@@ -70,10 +70,10 @@ export default {
     },
     // 点击兼职前往详情页
     toDetail (jobId, merchantId) {
-      if (!this.evaluateFlag) {
-        this.$router.push('/detail/' + jobId)
-      } else {
+      if (this.evaluateFlag) {
         this.$emit('toEvaluate', jobId, merchantId)
+      } else {
+        this.$router.push('/detail/' + jobId)
       }
     }
   }

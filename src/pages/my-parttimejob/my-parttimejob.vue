@@ -50,13 +50,15 @@ export default {
   methods: {
     getSignedJob () {
       this.axios.post('http://equator8848.xyz:8080/yian2/studentSignedJobInfo/getSignedJob.do', qs.stringify({
-        status: 1
+        status: 0
       }))
         .then((res) => {
+          // console.log(res)
           if (res.data.status === 1) {
             this.content1 = res.data.data
-          } else if (res.data.status === 0) {
-            this.msg1 = res.data.msg
+            if (!res.data.data.length) {
+              this.msg1 = '赶快去报名兼职吧'
+            }
           }
         })
     },
@@ -65,10 +67,11 @@ export default {
         status: 2
       }))
         .then((res) => {
+          // console.log(res)
           if (res.data.status === 1) {
             this.content2 = res.data.data
           } else if (res.data.status === 0) {
-            this.msg2 = res.data.msg
+            this.msg2 = '赶快去报名兼职吧'
           }
         })
     },
@@ -77,10 +80,11 @@ export default {
         status: 4
       }))
         .then((res) => {
+          // console.log(res)
           if (res.data.status === 1) {
             this.content3 = res.data.data
           } else if (res.data.status === 0) {
-            this.msg3 = res.data.msg
+            this.msg3 = '赶快去报名兼职吧'
           }
         })
     },
@@ -89,10 +93,12 @@ export default {
         status: 3
       }))
         .then((res) => {
+          // console.log(res)
           if (res.data.status === 1) {
             this.content4 = res.data.data
-          } else if (res.data.status === 0) {
-            this.msg4 = res.data.msg
+            if (!res.data.data.length) {
+              this.msg4 = '赶快去报名兼职吧'
+            }
           }
         })
     },
