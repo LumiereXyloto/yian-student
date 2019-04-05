@@ -4,11 +4,9 @@
       <span class="titleText">
         {{this.title}}({{content.length}})
       </span>
-      <p :class="isclicked?'iconAfterClick':'iconBeforeClick'" >
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-right"></use>
-        </svg>
-      </p>
+      <svg :class="isclicked?'iconAfterClick':'iconBeforeClick'" aria-hidden="true">
+        <use xlink:href="#iconqianjin"></use>
+      </svg>
     </div>
     <transition name="slide-fade">
       <div class="contentArea" v-show="isclicked" >
@@ -104,12 +102,7 @@ export default {
     text-align center
     overflow hidden
     border-radius .1rem
-    .iconBeforeClick
-      width .5rem
-      height .5rem
-      float right
-      right .2rem
-      color $color-text
+    position relative
   .boardAfterClick
     width 100%
     height 1.2rem
@@ -119,14 +112,7 @@ export default {
     overflow hidden
     border-radius .1rem
     color #ffffff
-    .iconAfterClick
-      width .5rem
-      height .5rem
-      float right
-      right .2rem
-      transform: rotate(90deg)
-      transform-origin: center bottom
-      color $color-text
+    position relative
   .item
     display flex
     background-color #ffffff
@@ -159,4 +145,25 @@ export default {
     /* .slide-fade-leave-active for below version 2.1.8 */
     transform: translateY(-10px)
     opacity: 0
+  .iconBeforeClick
+    position absolute
+    left .4rem
+    top .42rem
+    width .36rem
+    height .36rem
+    fill currentColor
+    overflow hidden
+    color #acacac
+    transition 0.4s
+  .iconAfterClick
+    position absolute
+    left .4rem
+    top .42rem
+    width .36rem
+    height .36rem
+    fill currentColor
+    overflow hidden
+    color #ffffff
+    transform rotate(90deg)
+    transition 0.4s
 </style>

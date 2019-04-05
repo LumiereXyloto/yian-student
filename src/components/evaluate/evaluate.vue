@@ -101,8 +101,8 @@ export default {
     },
     evaluate () {
       let _this = this
-      console.log(this.evaluationContent, this.starNum)
-      console.log(this.jobId, this.toUserId)
+      // console.log(this.evaluationContent, this.starNum)
+      // console.log(this.jobId, this.toUserId)
       this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/evaluate.do', qs.stringify({
         jobId: this.jobId,
         toUserId: this.toUserId,

@@ -55,19 +55,27 @@ export default {
       badNum: '',
       name: '',
       icon: '',
-      tipText: '暂无收到的评价'
+      tipText: ''
     }
   },
   methods: {
     tabLeftClick () {
       this.isSelected = true
       this.activeList = this.inList
-      this.tipText = '暂无收到的评价'
+      if (this.activeList.length === 0) {
+        this.tipText = '暂无收到的评价'
+      } else {
+        this.tipText = ''
+      }
     },
     tabRightClick () {
       this.isSelected = false
       this.activeList = this.outList
-      this.tipText = '暂无发出的评价'
+      if (this.activeList.length === 0) {
+        this.tipText = '暂无收到的评价'
+      } else {
+        this.tipText = ''
+      }
     },
     getOwnInEvaluation () {
       let _this = this
@@ -79,6 +87,11 @@ export default {
           // console.log(res)
           _this.inList = _this.normalizeList(res.data.data.list)
           _this.activeList = _this.inList
+          if (_this.activeList.length === 0) {
+            _this.tipText = '暂无收到的评价'
+          } else {
+            _this.tipText = ''
+          }
         })
     },
     getOwnOutEvaluation () {

@@ -765,6 +765,9 @@ export default {
             } else if (res.data.data.isNotMark.length === 0) {
               _this.noDataText2 = '抱歉，暂无相似的兼职'
             }
+          } else {
+            _this.noDataText1 = '抱歉，暂无符合条件的兼职'
+            _this.noDataText2 = '抱歉，暂无相似的兼职'
           }
         })
     },
