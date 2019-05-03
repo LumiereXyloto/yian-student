@@ -82,15 +82,17 @@ export default {
         this.$layer.msg(res.data.msg)
         this.list.psw = ''
       } else if (res.data.status === 4000) {
-        this.$router.push('/home')
+        // 向Vuex中存储用户信息
+        this.$store.commit('loginState', res.data.data)
+        this.$router.replace('/home')
         this.$layer.closeAll()
         this.$layer.msg(res.data.msg)
         if (this.isRememberPsw === true) {
           // console.log('checked === true')
-          this.setCookie(this.list.uid, this.list.psw, 30)
+          this.setStorage(this.list.uid, this.list.psw)
         } else {
           // console.log('清空Cookie')
-          this.clearCookie()
+          this.clearStorage()
         }
       } else {
         this.$layer.closeAll()
@@ -102,33 +104,44 @@ export default {
     //     console.log(this.isRememberPsw)
     //   }, 17)
     // },
-    setCookie (uid, psw, exdays) {
-      let exdate = new Date()
-      exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays)// 保存的天数
-      window.document.cookie = `uid = ${uid}; path = /; expires = ${exdate.toGMTString()}`
-      window.document.cookie = `psw = ${psw}; path = /; expires = ${exdate.toGMTString()}`
+    // setCookie (uid, psw, exdays) {
+    //   let exdate = new Date()
+    //   exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays)// 保存的天数
+    //   window.document.cookie = `uid = ${uid}; path = /; expires = ${exdate.toGMTString()}`
+    //   window.document.cookie = `psw = ${psw}; path = /; expires = ${exdate.toGMTString()}`
+    // },
+    // getCookie () {
+    //   if (document.cookie.length > 0) {
+    //     // console.log(document.cookie) eg:uid=740207968@qq.com; psw=123456
+    //     var arr = document.cookie.split('; ')
+    //     for (var i = 0; i < arr.length; i++) {
+    //       var arr2 = arr[i].split('=')// 再次切割
+    //       // 判断查找相对应的值
+    //       if (arr2[0] === 'uid') {
+    //         this.list.uid = arr2[1]// 保存到保存数据的地方
+    //       } else if (arr2[0] === 'psw') {
+    //         this.list.psw = arr2[1]
+    //       }
+    //     }
+    //   }
+    // },
+    // clearCookie () {
+    //   this.setCookie('', '', -1)// 修改2值都为空，天数为负1天就好了
+    // },
+    setStorage (uid, psw) {
+      window.localStorage.setItem('uid', `${uid}`)
+      window.localStorage.setItem('psw', `${psw}`)
     },
-    getCookie () {
-      if (document.cookie.length > 0) {
-        // console.log(document.cookie) eg:uid=740207968@qq.com; psw=123456
-        var arr = document.cookie.split('; ')
-        for (var i = 0; i < arr.length; i++) {
-          var arr2 = arr[i].split('=')// 再次切割
-          // 判断查找相对应的值
-          if (arr2[0] === 'uid') {
-            this.list.uid = arr2[1]// 保存到保存数据的地方
-          } else if (arr2[0] === 'psw') {
-            this.list.psw = arr2[1]
-          }
-        }
-      }
+    getStorage () {
+      this.list.uid = window.localStorage.getItem('uid')
+      this.list.psw = window.localStorage.getItem('psw')
     },
-    clearCookie () {
-      this.setCookie('', '', -1)// 修改2值都为空，天数为负1天就好了
+    clearStorage () {
+      window.localStorage.clear()
     }
   },
   mounted () {
-    this.getCookie()
+    this.getStorage()
   }
 }
 </script>

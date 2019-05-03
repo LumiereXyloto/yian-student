@@ -128,7 +128,7 @@ export default {
               })
           }
         })
-      } else if (this.list.status === 9) {
+      } else if (this.list.status === -9) {
         console.log('nothing')
       } else {
         if (this.list.isSignOrNot === '0') {
@@ -196,7 +196,7 @@ export default {
     getButtonText () {
       if (this.list.status === 7) {
         this.buttonText = '点击收工'
-      } else if (this.list.status === 9) {
+      } else if (this.list.status === -9) {
         this.buttonText = '兼职已完成'
       } else {
         if (this.list.isSignOrNot === '0') {

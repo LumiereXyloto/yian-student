@@ -45,8 +45,9 @@ export default {
         .then(this.sendRequestSucc)
     },
     sendRequestSucc (res) {
-      // console.log(res)
-      this.list = res.data.data.list
+      if (res.data.data) {
+        this.list = res.data.data.list
+      }
     },
     selectItem (item) {
       this.$router.push(`/detail/${item.jobId}`)

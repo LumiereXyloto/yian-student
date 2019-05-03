@@ -56,8 +56,10 @@ export default {
     handleItemClick (e) {
       if (e.target.className === 'select-item') {
         e.target.className = 'selected-item'
+        this.selectItem = []
       } else {
         e.target.className = 'select-item'
+        this.selectItem = []
       }
     },
     checkContent () {
@@ -103,6 +105,7 @@ export default {
       let _this = this
       // console.log(this.evaluationContent, this.starNum)
       // console.log(this.jobId, this.toUserId)
+      // console.log(this.evaluationContent, this.starNum)
       this.axios.post('http://equator8848.xyz:8080/yian2/evaluate/evaluate.do', qs.stringify({
         jobId: this.jobId,
         toUserId: this.toUserId,
@@ -113,6 +116,7 @@ export default {
           if (res.data.status === 1) {
             _this.$layer.closeAll()
             _this.$layer.msg(res.data.msg)
+            _this.$emit('handleItemDelete', _this.jobId)
             _this.$emit('changeEvaluateShow')
           } else if (res.data.status === -1) {
             _this.$layer.closeAll()

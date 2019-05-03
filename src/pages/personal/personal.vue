@@ -127,7 +127,9 @@ export default {
               if (res.data.status === 1) {
                 _this.$layer.closeAll()
                 _this.$layer.msg(res.data.msg)
-                _this.$router.push('/login')
+                _this.$router.replace('/login')
+                // 清除Vuex中的用户数据
+                _this.$store.commit('logoutState', null)
               }
             })
         },

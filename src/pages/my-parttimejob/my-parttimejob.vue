@@ -6,7 +6,13 @@
     <folding-board :title="tabTitle2" :content="content2" :evaluateFlag="true" @toEvaluate="toEvaluate" :msg="msg2"></folding-board>
     <folding-board :title="tabTitle3" :content="content3" :msg="msg3"></folding-board>
     <transition name="slide">
-      <evaluate-merchant v-show="evaluateShow" @changeEvaluateShow="changeEvaluateShow" :jobId="jobId" :toUserId="toUserId"></evaluate-merchant>
+      <evaluate-merchant
+        v-show="evaluateShow"
+        @changeEvaluateShow="changeEvaluateShow"
+        @handleItemDelete="handleItemDelete"
+        :jobId="jobId"
+        :toUserId="toUserId"
+      ></evaluate-merchant>
     </transition>
     <div id="grey-background" v-show="greyFlag"></div>
   </div>
@@ -111,6 +117,20 @@ export default {
     changeEvaluateShow () {
       this.evaluateShow = false
       this.greyFlag = false
+    },
+    handleItemDelete (id) {
+      // console.log(id)
+      // console.log(this.content2)
+      let arr = []
+      this.content2.map(item => {
+        if (item.jobId !== id) {
+          arr.push(item)
+        }
+      })
+      this.content2 = arr
+      if (this.content2.length === 0) {
+        this.msg2 = '赶快去报名兼职吧'
+      }
     }
   },
   mounted () {
